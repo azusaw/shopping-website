@@ -3,8 +3,9 @@ import webcolors
 from pathlib import Path
 
 from django.core.management.base import BaseCommand
+from django.shortcuts import get_object_or_404
 
-from shopping.models import Item, Gender, MasterCategory, SubCategory, ArticleType, BaseColour
+from shopping.models import Item, Gender, MasterCategory, SubCategory, ArticleType, BaseColour, Image
 
 
 def get_hex_code(str):
@@ -34,7 +35,7 @@ class Command(BaseCommand):
     help = 'Load data from csv'
 
     def handle(self, *args, **options):
-        # Delete data from tables to avoid duplicate values when the file is rerun
+        # Delete data from tables to avoid duplicate values
         print("START: DELETE ALL RECORDS FROM DATABASE")
         Item.objects.all().delete()
         Gender.objects.all().delete()
@@ -44,9 +45,9 @@ class Command(BaseCommand):
         BaseColour.objects.all().delete()
         print("--> Delete all record successfully.")
 
+        # Insert data from styles.csv
+        print("START: READ DATA FROM CSV FROM styles.csv")
         base_dir = Path(__file__).resolve().parent.parent.parent.parent
-
-        print("START: READ DATA FROM CSV")
         with open(str(base_dir) + '/data/styles.csv', newline='', encoding='latin-1') as f:
             reader = csv.reader(f, delimiter=",")
             next(reader)
@@ -79,8 +80,7 @@ class Command(BaseCommand):
                     display_name=row[9]
                 )
                 items.append(item)
-
-            print("--> Read all from csv record successfully.")
+            print("--> Read all from styles.csv record successfully.")
 
             print("START: INSERT DATA INTO DATABASE")
             Gender.objects.bulk_create(gender)
@@ -89,5 +89,31 @@ class Command(BaseCommand):
             ArticleType.objects.bulk_create(article_type)
             BaseColour.objects.bulk_create(base_colour)
             Item.objects.bulk_create(items)
-
             print("--> Data parsed successfully.")
+
+            # Insert data from images.csv
+            print("START: READ DATA FROM CSV FROM images.csv")
+            with open(str(base_dir) + '/data/images.csv', newline='', encoding='latin-1') as f:
+                reader = csv.reader(f, delimiter=",")
+                next(reader)
+
+                images = []
+
+                for row in reader:
+                    try:
+                        item = Item.objects.get(pk=row[0].removesuffix('.jpg'))
+                    except Item.DoesNotExist:
+                        # Skip if a item does not exist in shopping_item table
+                        continue
+                    image = Image(
+                        item=item,
+                        link=row[1],
+                        )
+                    images.append(image)
+                print("--> Read all from images.csv record successfully.")
+
+                print("START: INSERT DATA INTO DATABASE")
+                Image.objects.bulk_create(images)
+                print("--> Data parsed successfully.")
+
+        print("--> Complete all data parse successfully.")

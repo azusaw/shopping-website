@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Item(models.Model):
-    id = models.TextField(primary_key=True)
+    id = models.TextField(primary_key=True, unique=True)
     gender = models.ForeignKey('Gender', on_delete=models.CASCADE)
     master_category = models.ForeignKey('MasterCategory', on_delete=models.CASCADE)
     sub_category = models.ForeignKey('SubCategory', on_delete=models.CASCADE)
@@ -48,3 +48,11 @@ class BaseColour(models.Model):
 
     def __str__(self):
         return self.id
+
+
+class Image(models.Model):
+    item = models.ForeignKey('Item', on_delete=models.CASCADE, primary_key=True, unique=True)
+    link = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.link
