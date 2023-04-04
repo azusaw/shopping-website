@@ -4,10 +4,14 @@ All Disaster Data
 {% endblock %}
 {% block page_content %}
 <h1>All Items</h1>
+    {{cnt}}records
+<div class="container">
+  <div class="row">
     {% for item in items_with_image %}
-    <tr>
-        <td>{{item.item.id}}</td>
-        <img src="{{item.link}}" width=50 />
-    </tr>
+        <div class="col-3">
+        {% include 'item_card.html' with item=item %}
+        </div>
     {% endfor %}
+    </div>
+</div>
 {% endblock %}
