@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}
-All Disaster Data
+All Items
 {% endblock %}
 {% block page_content %}
 <h1>All Items</h1>
@@ -8,7 +8,7 @@ All Disaster Data
 <div class="container">
   <div class="row">
     {% for item in items_with_image %}
-        <div class="col-3">
+        <div class="col-4 my-2">
         {% include 'item_card.html' with item=item %}
         </div>
     {% endfor %}

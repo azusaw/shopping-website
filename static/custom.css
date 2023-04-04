@@ -1,0 +1,15 @@
+.container {
+}
+
+.btn-more {
+    position: absolute;
+    border: 1px gray solid;
+    bottom: 15px;
+    right: 10px;
+
+}
+
+.card-img-top {
+    max-height: 350px;
+    object-fit: cover;
+}
