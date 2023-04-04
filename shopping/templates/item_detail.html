@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}
+{{items_with_image.item.display_name}}
+{% endblock %}
+{% block page_content %}
+<div class="row my-4 a" style="max-width:900px; margin: 1rem auto; align-items: center;">
+  <div class="col-6">
+    <img src="{{items_with_image.link}}" alt={{items_with_image.item.display_name}} width="400"/>
+  </div>
+  <div class="col-6">
+    <p>
+      {{items_with_image.item.master_category}}&nbsp;/&nbsp;
+      {{items_with_image.item.sub_category}}&nbsp;/&nbsp;
+      {{items_with_image.item.article_type}}
+    </p>
+    <p>
+      {{items_with_image.item.year}}&ensp;{{items_with_image.item.season}},&ensp;{{items_with_image.item.usage}}
+    </p>
+    <h1>{{items_with_image.item.display_name}}</h1>
+    <span class="colour-box my-2" style="background-color: {{items_with_image.item.base_colour.hex_code}}" >
+      {{items_with_image.item.base_colour}}
+    </span>
+    <div class="price">
+      £&nbsp;2,149.00
+    </div>
+     <a href="">
+        <div class="btn-w my-10">
+            <i class="fa-solid fa-plus mr-2"></i>Add to Cart
+        </div>
+     </a>
+  </div>
+</div>
+{% endblock %}

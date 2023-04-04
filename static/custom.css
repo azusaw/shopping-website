@@ -13,3 +13,37 @@
     max-height: 350px;
     object-fit: cover;
 }
+
+.colour-box {
+    display: inline-block;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+}
+
+.price {
+    text-align: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.btn-w {
+    display: inline-block;
+    font-size: 24px;
+    width: 100%;
+    border: 1px solid slateblue;
+    border-radius: 5px;
+    background-color: white;
+    color: slateblue;
+    text-align: center;
+    padding: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-w:hover {
+    border-color: white;
+    background-color: slateblue;
+    color: white;
+    font-weight: 500;
+}

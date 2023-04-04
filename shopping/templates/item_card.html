@@ -3,6 +3,6 @@
   <div class="card-body">
     <h5 class="card-title">{{item.item.display_name}}</h5>
     <p class="card-text">{{item.item.article_type}}</p>
-    <a href="#" class="btn btn-more">More</a>
+    <a href="{% url 'detail' item_id=item.item.id %}" class="btn btn-more">More</a>
   </div>
 </div>
