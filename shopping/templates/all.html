@@ -3,15 +3,13 @@
 All Items
 {% endblock %}
 {% block page_content %}
-<h1>All Items</h1>
+    <h1>All Items</h1>
     {{cnt}}records
-<div class="container">
-  <div class="row">
+    <div class="row">
     {% for item in items_with_image %}
         <div class="col-4 my-2">
         {% include 'item_card.html' with item=item %}
         </div>
     {% endfor %}
     </div>
-</div>
 {% endblock %}

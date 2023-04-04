@@ -22,11 +22,15 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
 </head>
 <body>
-    <div class="container">
-        {% block content %}
-            {% block page_content %}
+    {% include 'header.html' %}
+    <main class="d-flex">
+        {% include 'side-bar.html' %}
+        <div class="d-flex flex-column contents">
+            {% block content %}
+                {% block page_content %}
+                {% endblock %}
             {% endblock %}
-        {% endblock %}
-    </div>
+        </div>
+    </main>
 </body>
 </html>
