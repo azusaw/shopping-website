@@ -67,19 +67,21 @@ class Command(BaseCommand):
                 article_type.add(ArticleType(id=row[4]))
                 base_colour.add(BaseColour(id=row[5], hex_code=get_hex_code(row[5])))
 
-                item = Item(
-                    id=row[0],
-                    gender_id=row[1],
-                    master_category_id=row[2],
-                    sub_category_id=row[3],
-                    article_type_id=row[4],
-                    base_colour_id=row[5],
-                    season=row[6],
-                    year=row[7],
-                    usage=row[8],
-                    display_name=row[9]
-                )
-                items.append(item)
+                # Reduce the number of record into 3000 - 7000 filter by year
+                if row[7] > '2015':
+                    item = Item(
+                        id=row[0],
+                        gender_id=row[1],
+                        master_category_id=row[2],
+                        sub_category_id=row[3],
+                        article_type_id=row[4],
+                        base_colour_id=row[5],
+                        season=row[6],
+                        year=row[7],
+                        usage=row[8],
+                        display_name=row[9]
+                    )
+                    items.append(item)
             print("--> Read all from styles.csv record successfully.")
 
             print("START: INSERT DATA INTO DATABASE")
