@@ -1,3 +1,50 @@
 from django.db import models
 
-# Create your models here.
+
+class Item(models.Model):
+    id = models.TextField(primary_key=True)
+    gender = models.ForeignKey('Gender', on_delete=models.CASCADE)
+    master_category = models.ForeignKey('MasterCategory', on_delete=models.CASCADE)
+    sub_category = models.ForeignKey('SubCategory', on_delete=models.CASCADE)
+    article_type = models.ForeignKey('ArticleType', on_delete=models.CASCADE)
+    base_colour = models.ForeignKey('BaseColour', on_delete=models.CASCADE)
+    season = models.TextField()
+    year = models.IntegerField()
+    usage = models.TextField()
+    display_name = models.TextField()
+
+
+class Gender(models.Model):
+    id = models.TextField(primary_key=True)
+
+    def __str__(self):
+        return self.id
+
+
+class MasterCategory(models.Model):
+    id = models.TextField(primary_key=True)
+
+    def __str__(self):
+        return self.id
+
+
+class SubCategory(models.Model):
+    id = models.TextField(primary_key=True)
+
+    def __str__(self):
+        return self.id
+
+
+class ArticleType(models.Model):
+    id = models.TextField(primary_key=True)
+
+    def __str__(self):
+        return self.id
+
+
+class BaseColour(models.Model):
+    id = models.TextField(primary_key=True)
+    hex_code = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.id
