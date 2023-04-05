@@ -24,7 +24,7 @@
 <body>
     {% include 'header.html' %}
     <main class="d-flex">
-        {% include 'side-bar.html' %}
+        {% include 'side-bar.html' with menu=menu %}
         <div class="d-flex flex-column contents">
             {% block content %}
                 {% block page_content %}

@@ -1,16 +1,77 @@
 <div class="side-bar">
     <div class="sidebar-item-wrapper">
-        <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <a href="#" class="nav-link active" aria-current="page">
-                    Home
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-white">
-                    Category
-                </a>
-            </li>
-        </ul>
+        <div class="accordion accordion-flush" id="accordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="gender-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#gender" aria-expanded="false" aria-controls="gender">
+                        Gender
+                    </button>
+                </h2>
+                <div id="gender" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        {% for item in menu.gender %}
+                        <div class="col-4 my-2">
+                            {{ item }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="master_category-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#master_category" aria-expanded="false" aria-controls="master_category">
+                        Category
+                    </button>
+                </h2>
+                <div id="master_category" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        {% for k, v in menu.master_sub_category.items %}
+                        <div class="my-2">
+                            {{ k }}
+                            {% for i in v %}
+                            <li>{{ i }}</li>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="article_type-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#article_type" aria-expanded="false" aria-controls="article_type">
+                        Type
+                    </button>
+                </h2>
+                <div id="article_type" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        {% for item in menu.article_type %}
+                        <div class="my-2">
+                            {{ item.id }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="base_colour-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#base_colour" aria-expanded="false" aria-controls="base_colour">
+                        Colour
+                    </button>
+                </h2>
+                <div id="base_colour" class="accordion-collapse collapse">
+                    <div class="mx-auto" style="max-width: 200px; padding: 30px 10px">
+                        {% for item in menu.base_colour %}
+                        {% if item.hex_code %}
+                        <span class="color-box" style="background-color: {{ item.hex_code }}"></span>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
