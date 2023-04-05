@@ -17,6 +17,7 @@ class MasterCategory(models.Model):
 
 class SubCategory(models.Model):
     id = models.TextField(primary_key=True)
+    master_category = models.ForeignKey('MasterCategory', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.id
@@ -24,6 +25,7 @@ class SubCategory(models.Model):
 
 class ArticleType(models.Model):
     id = models.TextField(primary_key=True)
+    sub_category = models.ForeignKey('SubCategory', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.id
@@ -39,7 +41,7 @@ class BaseColour(models.Model):
 
 class Item(models.Model):
     id = models.TextField(primary_key=True, unique=True)
-    gender = models.ForeignKey(Gender, on_delete=models.CASCADE)
+    gender = models.ForeignKey('Gender', on_delete=models.CASCADE)
     master_category = models.ForeignKey('MasterCategory', on_delete=models.CASCADE)
     sub_category = models.ForeignKey('SubCategory', on_delete=models.CASCADE)
     article_type = models.ForeignKey('ArticleType', on_delete=models.CASCADE)

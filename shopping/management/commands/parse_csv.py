@@ -1,9 +1,8 @@
 import csv
-import webcolors
 from pathlib import Path
 
+import webcolors
 from django.core.management.base import BaseCommand
-from django.shortcuts import get_object_or_404
 
 from shopping.models import Item, Gender, MasterCategory, SubCategory, ArticleType, BaseColour, Image
 
@@ -61,10 +60,14 @@ class Command(BaseCommand):
 
             # Insert data to the relevant tables
             for row in reader:
+                tmp_master_category = MasterCategory(id=row[2])
+                tmp_sub_category = SubCategory(id=row[3], master_category=tmp_master_category)
+                tmp_article_type = ArticleType(id=row[4], sub_category=tmp_sub_category)
+
                 gender.add(Gender(id=row[1]))
-                master_category.add(MasterCategory(id=row[2]))
-                sub_category.add(SubCategory(id=row[3]))
-                article_type.add(ArticleType(id=row[4]))
+                master_category.add(tmp_master_category)
+                sub_category.add(tmp_sub_category)
+                article_type.add(tmp_article_type)
                 base_colour.add(BaseColour(id=row[5], hex_code=get_hex_code(row[5])))
 
                 # Reduce the number of record into 3000 - 7000 filter by year
@@ -110,7 +113,7 @@ class Command(BaseCommand):
                     image = Image(
                         item=item,
                         link=row[1],
-                        )
+                    )
                     images.append(image)
                 print("--> Read all from images.csv record successfully.")
 
