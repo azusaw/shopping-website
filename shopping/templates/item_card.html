@@ -1,9 +1,14 @@
-<div class="card" style="width: 280px; height: 500px">
+<div class="card mx-auto" style="width: 280px; height: 500px">
     <img src="{{item.link}}" class="card-img-top pa-4" alt="item-img">
     <div class="card-body">
-        <h5 class="card-title">{{item.item.display_name}}</h5>
-        <p class="card-text">{{item.item.article_type}}</p>
         <div class="color-box absolute-tr" style="background-color: {{item.item.base_colour.hex_code}}"></div>
+        <h5 class="card-title">{{item.item.display_name}}</h5>
+        <p class="card-text">
+            {{item.item.article_type}}
+        </p>
+        <div style="font-size: 1.2rem">
+            £&nbsp;2,149.00
+        </div>
         <a href="{% url 'detail' item_id=item.item.id %}" class="btn btn-more">More</a>
     </div>
 </div>

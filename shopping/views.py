@@ -6,7 +6,7 @@ from .models import Image, Gender, SubCategory, ArticleType, BaseColour
 
 
 def menu():
-    gender = Gender.objects.all()
+    gender = Gender.objects.all().order_by("id")
     sub_category = SubCategory.objects.all()
     article_type = ArticleType.objects.all()
     base_colour = BaseColour.objects.all().values('hex_code').distinct().order_by('-hex_code')
