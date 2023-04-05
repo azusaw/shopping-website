@@ -50,6 +50,7 @@ class Item(models.Model):
     year = models.IntegerField()
     usage = models.TextField()
     display_name = models.TextField()
+    price = models.FloatField()
 
 
 class Image(models.Model):

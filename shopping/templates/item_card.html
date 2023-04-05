@@ -7,7 +7,7 @@
             {{item.item.article_type}}
         </p>
         <div style="font-size: 1.2rem">
-            £&nbsp;2,149.00
+            £&nbsp;{{item.item.price}}
         </div>
         <a href="{% url 'detail' item_id=item.item.id %}" class="btn btn-more">More</a>
     </div>

@@ -1,4 +1,5 @@
 import csv
+import random
 from pathlib import Path
 
 import webcolors
@@ -7,8 +8,9 @@ from django.core.management.base import BaseCommand
 from shopping.models import Item, Gender, MasterCategory, SubCategory, ArticleType, BaseColour, Image
 
 
-def get_hex_code(str):
-    colour = str.lower().split(' ')[-1]
+def get_hex_code(colour_str):
+    """Convert colour name to hex code"""
+    colour = colour_str.lower().split(' ')[-1]
     if colour == 'copper' or colour == 'rust' or colour == 'bronze':
         colour = 'brown'
     elif colour == 'nude' or colour == 'mustard' or colour == 'skin':
@@ -28,6 +30,11 @@ def get_hex_code(str):
     except Exception:
         hex_code = None
     return hex_code
+
+
+def get_price():
+    """Return random price"""
+    return round(random.randrange(500, 10000, 1) / 100, 2)
 
 
 class Command(BaseCommand):
@@ -85,7 +92,8 @@ class Command(BaseCommand):
                     season=row[6],
                     year=row[7],
                     usage=row[8],
-                    display_name=row[9]
+                    display_name=row[9],
+                    price=get_price()
                 )
                 items.append(item)
                 cnt += 1
