@@ -1,45 +1,48 @@
+{% load static %}
 <aside>
     <header class="header">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <ul class="nav col-8 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="{% url 'items' %}" class="nav-link px-2 text-secondary">Home</a></li>
-            </ul>
-            <form class="mt-2 mb-3 me-lg-4" action="{% url 'items' %}" method="get" id="search">
-                <input type="search" id="keyword" name="keyword" class="form-control form-control-dark fa-placeholder"
-                       placeholder="&#xF002;&emsp;Input keyword + Enter" aria-label="Search"
-                       style="width: 250px">
-            </form>
-            <div class="mt-2 mb-3 align-right">
-                {% if user.is_authenticated %}
-                <div class="dropdown mr-2">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none"
-                       id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://avatars.githubusercontent.com/u/72424558?v=4" alt="" width="40" height="40"
-                             class="rounded-circle mr-2">
-                        {{user.username}}
-                        <i class="fa-solid fa-sort-down mx-2" style="font-size: 1.2rem; height: 1.7rem"></i>
+        <div class="d-flex">
+            <a href="{% url 'items' %}">
+                <img src="{% static 'logo.svg' %}" width="200" style="margin: 0.5rem"/>
+            </a>
+            <div style="margin-left: auto; display: flex;">
+                <form class="mt-2 mb-3 mr-3" action="{% url 'items' %}" method="get" id="search">
+                    <input type="search" id="keyword" name="keyword" class="form-control fa-placeholder"
+                           placeholder="&#xF002;&emsp;Keyword + Enter ( Watch, Jeans.. )" aria-label="Search"
+                           style="width: 340px">
+                </form>
+                <div class="mt-2 mb-3">
+                    {% if user.is_authenticated %}
+                    <div class="dropdown mr-2">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none"
+                           id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://avatars.githubusercontent.com/u/72424558?v=4" alt="" width="40"
+                                 height="40"
+                                 class="rounded-circle mr-2">
+                            {{user.username}}
+                            <i class="fa-solid fa-sort-down mx-2" style="font-size: 1.2rem; height: 1.7rem"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Order History</a></li>
+                            <li><a class="dropdown-item" href="#">Cart</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Sign-out</a></li>
+                        </ul>
+                    </div>
+                    {% else %}
+                    <a href="{% url 'login' %}">
+                        <button type="button" class="btn btn-outline-light me-2"><i class="fa-solid fa-plus mr-2"></i>Login
+                        </button>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Order History</a></li>
-                        <li><a class="dropdown-item" href="#">Cart</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="{% url 'logout' %}">Sign-out</a></li>
-                    </ul>
+                    <a href="{% url 'signup' %}">
+                        <button type="button" class="btn btn-primary">Sign-up</button>
+                    </a>
+                    {% endif %}
                 </div>
-                {% else %}
-                <a href="{% url 'login' %}">
-                    <button type="button" class="btn btn-outline-light me-2"><i class="fa-solid fa-plus mr-2"></i>Login
-                    </button>
-                </a>
-                <a href="{% url 'signup' %}">
-                    <button type="button" class="btn btn-primary">Sign-up</button>
-                </a>
-                {% endif %}
             </div>
-
         </div>
     </header>
 </aside>

@@ -8,7 +8,7 @@
                         Gender
                     </button>
                 </h2>
-                <div id="gender" class="accordion-collapse collapse">
+                <div id="gender" class="accordion-collapse collapse" data-bs-parent="#accordion">
                     <div class="accordion-body">
                         {% for item in menu.gender %}
                         <a href="{% url 'items' %}?gender={{item.id}}">
@@ -27,7 +27,7 @@
                         Colour
                     </button>
                 </h2>
-                <div id="base_colour" class="accordion-collapse collapse">
+                <div id="base_colour" class="accordion-collapse collapse show" data-bs-parent="#accordion">
                     <div class="mx-auto" style="max-width: 200px; padding: 30px 10px">
                         {% for item in menu.base_colour %}
                         {% if item.hex_code %}
@@ -46,18 +46,19 @@
                         Category
                     </button>
                 </h2>
-                <div id="master_category" class="accordion-collapse collapse">
+                <div id="master_category" class="accordion-collapse collapse" data-bs-parent="#accordion">
                     <div class="accordion-body">
                         {% for k, v in menu.master_sub_category.items %}
                         <div class="my-2">
-                            <a href="{% url 'items' %}?master={{k}}">
+                            <a href="{% url 'items' %}?master={{k}}" class="side-bar-category">
                                 {{ k }}
                             </a>
                             {% for i in v %}
-                            <a href="{% url 'items' %}?sub={{i}}">
-                                <li>{{ i }}</li>
-                            </a>
+                            <div class="side-bar-sub-category">
+                                >&ensp;<a href="{% url 'items' %}?sub={{i}}">{{ i }}</a>
+                            </div>
                             {% endfor %}
+                            <br/>
                         </div>
                         {% endfor %}
                     </div>
