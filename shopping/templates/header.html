@@ -1,12 +1,13 @@
 <aside>
     <header class="header">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="{% url 'home' %}" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+            <ul class="nav col-8 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="{% url 'items' %}" class="nav-link px-2 text-secondary">Home</a></li>
             </ul>
-            <form class="mt-2 mb-3 me-lg-4">
-                <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+            <form class="mt-2 mb-3 me-lg-4" action="{% url 'items' %}" method="get" id="search">
+                <input type="search" id="keyword" name="keyword" class="form-control form-control-dark fa-placeholder"
+                       placeholder="&#xF002;&emsp;Input keyword + Enter" aria-label="Search"
+                       style="width: 250px">
             </form>
             <div class="text-end mt-2 mb-3">
                 <button type="button" class="btn btn-outline-light me-2">Login</button>

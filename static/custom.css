@@ -36,7 +36,7 @@
 }
 
 .card-img-top {
-    max-height: 350px;
+    max-height: 320px;
     object-fit: cover;
 }
 
@@ -48,7 +48,6 @@
 }
 
 .price {
-    text-align: right;
     font-size: 28px;
     font-weight: bold;
 }
@@ -87,4 +86,15 @@
     position: absolute;
     top: 5px;
     right: 5px;
+}
+
+.bold {
+    font-weight: bold
+}
+
+.fa-placeholder {
+    font-family: 'FontAwesome';
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
 }

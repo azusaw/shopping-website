@@ -3,8 +3,10 @@
 All Items
 {% endblock %}
 {% block page_content %}
-<h1>All Items</h1>
-{{cnt}}records
+<h1>{{title}}</h1>
+<p class="align-right">
+    {{cnt}}&nbsp;items.
+</p>
 <div class="row">
     {% for item in items %}
     <div class="col-4 my-2">
