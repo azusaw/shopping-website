@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-k-d2ih59&@1(dhv46*_g6gq0vvxw9e^2-c%p3^li&#%d7khr#f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'shoppong-website.herokuapp.com']
 
 # Application definition
 
