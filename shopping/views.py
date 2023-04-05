@@ -1,8 +1,50 @@
 import webcolors
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect, render
 
+from .forms import SignUpForm
 from .models import Image, Gender, SubCategory, ArticleType, BaseColour
+
+
+def signup(request):
+    form = SignUpForm(request.POST)
+    errors = []
+
+    if request.method == "POST":
+        errors = form.errors
+
+    if form.is_valid():
+        user = form.save()
+        user.refresh_from_db()
+        user.customer.first_name = form.cleaned_data.get('first_name')
+        user.customer.last_name = form.cleaned_data.get('last_name')
+        user.save()
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password1')
+        user = authenticate(username=username, password=password)
+        login(request, user)
+        return redirect('/')
+
+    return render(request, 'signup.html',
+                  {'form': form, 'password_helper': form.fields["password1"].help_text, 'errors': errors})
+
+
+@login_required
+def login(request):
+    user = request.user
+    print(user)
+    if user.is_authenticated:
+        return render(request, 'items.html')
+    return redirect('login')
+
+
+def logout(request):
+    response = HttpResponseRedirect('/')
+    response.delete_cookie("sessionid")
+    return response
 
 
 def menu():

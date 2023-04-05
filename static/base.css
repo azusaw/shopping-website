@@ -10,3 +10,8 @@ h1 {
     line-height: 50px;
     margin: 2rem 0;
 }
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

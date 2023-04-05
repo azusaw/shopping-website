@@ -9,26 +9,37 @@
                        placeholder="&#xF002;&emsp;Input keyword + Enter" aria-label="Search"
                        style="width: 250px">
             </form>
-            <div class="text-end mt-2 mb-3">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                <button type="button" class="btn btn-primary">Sign-up</button>
+            <div class="mt-2 mb-3 align-right">
+                {% if user.is_authenticated %}
+                <div class="dropdown mr-2">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none"
+                       id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://avatars.githubusercontent.com/u/72424558?v=4" alt="" width="40" height="40"
+                             class="rounded-circle mr-2">
+                        {{user.username}}
+                        <i class="fa-solid fa-sort-down mx-2" style="font-size: 1.2rem; height: 1.7rem"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Order History</a></li>
+                        <li><a class="dropdown-item" href="#">Cart</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Sign-out</a></li>
+                    </ul>
+                </div>
+                {% else %}
+                <a href="{% url 'login' %}">
+                    <button type="button" class="btn btn-outline-light me-2"><i class="fa-solid fa-plus mr-2"></i>Login
+                    </button>
+                </a>
+                <a href="{% url 'signup' %}">
+                    <button type="button" class="btn btn-primary">Sign-up</button>
+                </a>
+                {% endif %}
             </div>
-            <!--        <div class="dropdown">-->
-            <!--            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"-->
-            <!--               id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">-->
-            <!--                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">-->
-            <!--                <strong>user-name</strong>-->
-            <!--            </a>-->
-            <!--            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">-->
-            <!--                <li><a class="dropdown-item" href="#">New project...</a></li>-->
-            <!--                <li><a class="dropdown-item" href="#">Settings</a></li>-->
-            <!--                <li><a class="dropdown-item" href="#">Profile</a></li>-->
-            <!--                <li>-->
-            <!--                    <hr class="dropdown-divider">-->
-            <!--                </li>-->
-            <!--                <li><a class="dropdown-item" href="#">Sign out</a></li>-->
-            <!--            </ul>-->
-            <!--        </div>-->
+
         </div>
     </header>
 </aside>
