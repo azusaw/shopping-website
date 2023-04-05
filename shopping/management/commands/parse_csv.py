@@ -58,8 +58,13 @@ class Command(BaseCommand):
             article_type = set()
             base_colour = set()
 
+            # Count record to make 5000 records
+            cnt = 0;
+
             # Insert data to the relevant tables
             for row in reader:
+                if cnt >= 5000:
+                    break
                 tmp_master_category = MasterCategory(id=row[2])
                 tmp_sub_category = SubCategory(id=row[3], master_category=tmp_master_category)
                 tmp_article_type = ArticleType(id=row[4], sub_category=tmp_sub_category)
@@ -70,21 +75,20 @@ class Command(BaseCommand):
                 article_type.add(tmp_article_type)
                 base_colour.add(BaseColour(id=row[5], hex_code=get_hex_code(row[5])))
 
-                # Reduce the number of record into 3000 - 7000 filter by year
-                if row[7] > '2015':
-                    item = Item(
-                        id=row[0],
-                        gender_id=row[1],
-                        master_category_id=row[2],
-                        sub_category_id=row[3],
-                        article_type_id=row[4],
-                        base_colour_id=row[5],
-                        season=row[6],
-                        year=row[7],
-                        usage=row[8],
-                        display_name=row[9]
-                    )
-                    items.append(item)
+                item = Item(
+                    id=row[0],
+                    gender_id=row[1],
+                    master_category_id=row[2],
+                    sub_category_id=row[3],
+                    article_type_id=row[4],
+                    base_colour_id=row[5],
+                    season=row[6],
+                    year=row[7],
+                    usage=row[8],
+                    display_name=row[9]
+                )
+                items.append(item)
+                cnt += 1
             print("--> Read all from styles.csv record successfully.")
 
             print("START: INSERT DATA INTO DATABASE")
