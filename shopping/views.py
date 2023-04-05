@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render
 
 from .models import Image, Gender, SubCategory, ArticleType, BaseColour
@@ -21,9 +22,37 @@ def menu():
 
 
 def item_list(request):
-    items_with_image = Image.objects.select_related("item").all()[0:10]
-    return render(request, 'all.html',
-                  {'menu': menu(), 'items_with_image': items_with_image, 'cnt': len(items_with_image)})
+    gender = ""
+    master = ""
+    sub = ""
+    colour = ""
+
+    # Set value if query string exists
+    if "gender" in request.GET:
+        gender = request.GET["gender"]
+    if "master" in request.GET:
+        master = request.GET["master"]
+    if "sub" in request.GET:
+        sub = request.GET["sub"]
+    if "colour" in request.GET:
+        colour = request.GET["colour"]
+
+    # Create WHERE clause from query strings
+    where = []
+    where_color = []
+    if gender != '':
+        where.append(Q(item__gender=gender))
+    if master != '':
+        where.append(Q(item__master_category=master))
+    if sub != '':
+        where.append(Q(item__sub_category=sub))
+    if colour != '':
+        where_color.append(Q(item__base_colour__hex_code='#' + colour))
+
+    items_with_image = Image.objects.all().select_related("item").filter(*where)
+    # FIX ME
+    items = items_with_image.select_related("item__base_colour").filter(*where_color)
+    return render(request, 'all.html', {'menu': menu(), 'items': items, 'cnt': len(items)})
 
 
 def item_detail(request, item_id):

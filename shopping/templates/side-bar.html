@@ -1,5 +1,6 @@
 <div class="side-bar">
     <div class="sidebar-item-wrapper">
+
         <div class="accordion accordion-flush" id="accordion">
             <div class="accordion-item">
                 <h2 class="accordion-header" id="gender-header">
@@ -11,46 +12,11 @@
                 <div id="gender" class="accordion-collapse collapse">
                     <div class="accordion-body">
                         {% for item in menu.gender %}
-                        <div class="col-4 my-2">
-                            {{ item }}
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="master_category-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#master_category" aria-expanded="false" aria-controls="master_category">
-                        Category
-                    </button>
-                </h2>
-                <div id="master_category" class="accordion-collapse collapse">
-                    <div class="accordion-body">
-                        {% for k, v in menu.master_sub_category.items %}
-                        <div class="my-2">
-                            {{ k }}
-                            {% for i in v %}
-                            <li>{{ i }}</li>
-                            {% endfor %}
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="article_type-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#article_type" aria-expanded="false" aria-controls="article_type">
-                        Type
-                    </button>
-                </h2>
-                <div id="article_type" class="accordion-collapse collapse">
-                    <div class="accordion-body">
-                        {% for item in menu.article_type %}
-                        <div class="my-2">
-                            {{ item.id }}
-                        </div>
+                        <a href="{% url 'home' %}?gender={{item.id}}">
+                            <div class="col-4 my-2">
+                                {{ item }}
+                            </div>
+                        </a>
                         {% endfor %}
                     </div>
                 </div>
@@ -66,12 +32,55 @@
                     <div class="mx-auto" style="max-width: 200px; padding: 30px 10px">
                         {% for item in menu.base_colour %}
                         {% if item.hex_code %}
-                        <span class="color-box" style="background-color: {{ item.hex_code }}"></span>
+                        <a href="{% url 'home' %}?colour={{item.hex_code|slice:'1:'}}">
+                            <span class="color-box" style="background-color: {{ item.hex_code }}"></span>
+                        </a>
                         {% endif %}
                         {% endfor %}
                     </div>
                 </div>
             </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="master_category-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#master_category" aria-expanded="false" aria-controls="master_category">
+                        Category
+                    </button>
+                </h2>
+                <div id="master_category" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        {% for k, v in menu.master_sub_category.items %}
+                        <div class="my-2">
+                            <a href="{% url 'home' %}?master={{k}}">
+                                {{ k }}
+                            </a>
+                            {% for i in v %}
+                            <a href="{% url 'home' %}?sub={{i}}">
+                                <li>{{ i }}</li>
+                            </a>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <!--            <div class="accordion-item">-->
+            <!--                <h2 class="accordion-header" id="article_type-header">-->
+            <!--                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"-->
+            <!--                            data-bs-target="#article_type" aria-expanded="false" aria-controls="article_type">-->
+            <!--                        Type-->
+            <!--                    </button>-->
+            <!--                </h2>-->
+            <!--                <div id="article_type" class="accordion-collapse collapse">-->
+            <!--                    <div class="accordion-body">-->
+            <!--                        {% for item in menu.article_type %}-->
+            <!--                        <div class="my-2">-->
+            <!--                            {{ item.id }}-->
+            <!--                        </div>-->
+            <!--                        {% endfor %}-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
         </div>
     </div>
 </div>
