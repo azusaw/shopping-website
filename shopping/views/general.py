@@ -46,6 +46,7 @@ def logout(request):
     return response
 
 
+@login_required
 def purchase(request):
     if request.user.is_authenticated:
         user = request.user
@@ -54,18 +55,20 @@ def purchase(request):
     return redirect('login')
 
 
+@login_required
 def payment(request):
     basket = Basket(request)
     user = request.user
     customer = get_object_or_404(Customer, user_id=user.id)
-    order = Order.objects.create(customer=customer)
+    order = Order.objects.create(customer=customer, total_price=basket.get_total_price())
     order.refresh_from_db()
 
     for basket_item in basket:
         print(basket_item['item'].item)
         item = basket_item['item'].item
         print(item, basket_item['quantity'])
-        order_item = OrderItem.objects.create(order=order, item=item, quantity=basket_item['quantity'])
+        order_item = OrderItem.objects.create(order=order, item=item, price=basket_item['price'],
+                                              quantity=basket_item['quantity'])
         order_item.refresh_from_db()
 
     basket.clear()

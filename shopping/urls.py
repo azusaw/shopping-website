@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from shopping.views import basket, general, item
+from shopping.views import basket, general, item, order
 from . import views
 
 urlpatterns = [
@@ -13,4 +13,6 @@ urlpatterns = [
     path('basket_detail/', views.basket.basket_detail, name='basket_detail'),
     path('purchase/', views.general.purchase, name='purchase'),
     path('payment/', views.general.payment, name='payment'),
+    path('order_list/', views.order.order_list, name='order_list'),
+    path('order/<int:id>/', views.order.order_detail, name='order_detail'),
 ]

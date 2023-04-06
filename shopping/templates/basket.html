@@ -4,6 +4,7 @@ Your basket
 {% endblock %}
 {% block page_content %}
 <h1>Your Basket:</h1>
+{% if item in basket %}
 <table>
     <div class="align-right total-price">
         Total:&emsp;£&nbsp;{{ basket.get_total_price }}
@@ -40,4 +41,7 @@ Your basket
     {% endfor %}
     <a href="{% url 'purchase' %}" class="btn-w">Purchase</a>
 </table>
+{% else %}
+Your basket is Empty.
+{% endif %}
 {% endblock %}

@@ -24,7 +24,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
                             <a class="dropdown-item" href="#">Profile</a>
-                            <a class="dropdown-item" href="#">Order History</a>
+                            <a class="dropdown-item" href="{% url 'order_list' %}">Order History</a>
                             <a class="dropdown-item" href="{% url 'basket_detail' %}">Basket</a>
                             <hr class="dropdown-divider">
                             <a class="dropdown-item" href="{% url 'logout' %}">Sign-out</a>
