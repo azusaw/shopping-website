@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 from shopping.forms import BasketAddItemForm
 from shopping.models import Image
-from shopping.views.general import get_menu_info
+from shopping.views.menu import get_menu_info
 
 
 def item_list(request):

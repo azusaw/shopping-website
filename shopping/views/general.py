@@ -1,10 +1,11 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 
 from shopping.forms import SignUpForm
-from shopping.models import Gender, SubCategory, ArticleType, BaseColour
+from shopping.models import Customer, Order, OrderItem
+from shopping.views.basket import Basket
 
 
 def signup(request):
@@ -45,18 +46,28 @@ def logout(request):
     return response
 
 
-def get_menu_info():
-    gender = Gender.objects.all().order_by("id")
-    sub_category = SubCategory.objects.all()
-    article_type = ArticleType.objects.all()
-    base_colour = BaseColour.objects.all().values('hex_code').distinct().order_by('-hex_code')
+def purchase(request):
+    if request.user.is_authenticated:
+        user = request.user
+        basket = Basket(request)
+        return render(request, 'purchase.html', {'basket': basket, 'user': user})
+    return redirect('login')
 
-    master_sub_category = {}
-    for item in sub_category:
-        if item.master_category.id not in master_sub_category.keys():
-            master_sub_category[item.master_category.id] = [item.id]
-        else:
-            master_sub_category[item.master_category.id].append(item.id)
 
-    return {'gender': gender, 'master_sub_category': master_sub_category,
-            'article_type': article_type, 'base_colour': base_colour}
+def payment(request):
+    basket = Basket(request)
+    user = request.user
+    customer = get_object_or_404(Customer, user_id=user.id)
+    order = Order.objects.create(customer=customer)
+    order.refresh_from_db()
+
+    for basket_item in basket:
+        print(basket_item['item'].item)
+        item = basket_item['item'].item
+        print(item, basket_item['quantity'])
+        order_item = OrderItem.objects.create(order=order, item=item, quantity=basket_item['quantity'])
+        order_item.refresh_from_db()
+
+    basket.clear()
+    request.session['deleted'] = 'thanks for your purchase'
+    return redirect('item_list')

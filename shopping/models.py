@@ -81,3 +81,14 @@ class Customer(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.customer.save()
+
+
+class Order(models.Model):
+    customer = models.ForeignKey('Customer', on_delete=models.CASCADE)
+    created_date = models.DateTimeField(auto_now_add=True)
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey('Order', on_delete=models.CASCADE)
+    item = models.ForeignKey('Item', on_delete=models.CASCADE)
+    quantity = models.IntegerField()
