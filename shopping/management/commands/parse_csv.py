@@ -5,7 +5,7 @@ from pathlib import Path
 import webcolors
 from django.core.management.base import BaseCommand
 
-from shopping.models import Item, Gender, MasterCategory, SubCategory, ArticleType, BaseColour, Image
+from shopping.models import Item, Gender, MasterCategory, SubCategory, ArticleType, BaseColour, Image, Order, OrderItem
 
 
 def get_hex_code(colour_str):
@@ -49,6 +49,8 @@ class Command(BaseCommand):
         SubCategory.objects.all().delete()
         ArticleType.objects.all().delete()
         BaseColour.objects.all().delete()
+        Order.objects.all().delete()
+        OrderItem.objects.all().delete()
         print("--> Delete all record successfully.")
 
         # Insert data from styles.csv

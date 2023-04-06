@@ -3,9 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 
-from shopping.forms import SignUpForm
+from shopping.forms import SignUpForm, PaymentForm
 from shopping.models import Customer, Order, OrderItem
 from shopping.views.basket import Basket
+from shopping.views.menu import get_menu_info
 
 
 def signup(request):
@@ -50,8 +51,12 @@ def logout(request):
 def purchase(request):
     if request.user.is_authenticated:
         user = request.user
+        form = PaymentForm(initial={
+            'name': f"{user.first_name} {user.last_name}",
+        })
         basket = Basket(request)
-        return render(request, 'purchase.html', {'basket': basket, 'user': user})
+        return render(request, 'purchase.html',
+                      {'menu': get_menu_info(), 'basket': basket, 'user': user, 'form': form})
     return redirect('login')
 
 
@@ -73,4 +78,4 @@ def payment(request):
 
     basket.clear()
     request.session['deleted'] = 'thanks for your purchase'
-    return redirect('item_list')
+    return redirect("thanks", id=order.id)

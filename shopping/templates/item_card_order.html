@@ -1,0 +1,14 @@
+{% load mathfilters %}
+<div class="card mx-auto" style="width: 280px; height: 500px">
+    <img src="{{link}}" class="card-img-top pa-4" alt="item-img">
+    <div class="card-body">
+        <div class="color-box absolute-tr" style="background-color: {{item.item.base_colour.hex_code}}"></div>
+        <h5 class="card-title">{{item.display_name}}</h5>
+        <p class="card-text">
+            {{item.article_type}}
+        </p>
+        <div style="font-size: 1.2rem">
+            £&nbsp;{{item.price}}&nbsp;*&nbsp;{{quantity}}&nbsp;=&nbsp;<b>£&nbsp;{{item.price|mul:quantity}}</b>
+        </div>
+    </div>
+</div>

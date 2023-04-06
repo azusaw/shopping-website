@@ -8,8 +8,11 @@ Order Detail: {{order.id}}
     This is order {{ order.id }} for
     {{user.first_name}} {{user.last_name}}. The order was placed on: {{ order.created_date }}
 </p>
-<p>The order includes these items:</p>
-{% for order_item in order_items %}
-{{order_item.item.display_name}}
-{% endfor %}
+<div class="row">
+    {% for item in items_with_image %}
+    <div class="col-4 my-2">
+        {% include 'item_card_order.html' with item=item.item link=item.link quantity=item.quantity %}
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}

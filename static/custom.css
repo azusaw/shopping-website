@@ -115,22 +115,11 @@
     display: inline-block;
     font-size: 24px;
     width: 100%;
-    border: 1px solid slateblue;
-    border-radius: 5px;
-    background-color: white;
-    color: slateblue;
     text-align: center;
     padding: 5px;
     text-decoration: none;
-    transition: all 0.3s ease;
 }
 
-.btn-w:hover {
-    border-color: white;
-    background-color: slateblue;
-    color: white;
-    font-weight: 500;
-}
 
 .color-box {
     display: inline-block;
@@ -166,4 +155,34 @@
     font-weight: bold;
     text-decoration: underline 2px dotted #867070;
     text-underline-offset: 6px;
+}
+
+label.required::after {
+   content: ' *';
+   color: orangered;
+}
+
+.order-list-table {
+    color: #666;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.1rem;
+    overflow: hidden;
+}
+
+.order-list-table tr {
+    text-align: center;
+}
+
+.order-list-table th {
+    padding: 10px;
+    color: white;
+    background-color: #D5B4B4;
+    min-width: 200px;
+}
+
+.order-list-table td {
+    padding: 10px;
+    text-align: right;
 }

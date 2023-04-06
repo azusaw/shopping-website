@@ -21,3 +21,19 @@ class BasketAddItemForm(forms.Form):
         widget=forms.widgets.Select(attrs={'class': 'form-control quantity'})
     )
     override = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)
+
+
+class PaymentForm(forms.Form):
+    name = forms.CharField(
+        label="Name",
+        widget=forms.widgets.TextInput(attrs={'class': 'form-control'})
+    )
+    card_number = forms.CharField(
+        label="CardNumber",
+        widget=forms.widgets.TextInput(attrs={'class': 'form-control'})
+    )
+    expire_info = forms.CharField(
+        label="Expire Info",
+        widget=forms.widgets.TextInput(attrs={'class': 'form-control'})
+    )
+    override = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)

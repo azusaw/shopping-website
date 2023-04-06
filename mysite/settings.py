@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'shopping',
     'bootstrap5',
     'fontawesomefree',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [

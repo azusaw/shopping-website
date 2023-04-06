@@ -4,8 +4,8 @@ Order History
 {% endblock %}
 {% block page_content %}
 <h1>Order History</h1>
-
-<table>
+{% if orders|length > 0 %}
+<table class="order-list-table">
     <tr>
         <th>Order No.</th>
         <th>Total Price</th>
@@ -13,10 +13,13 @@ Order History
     </tr>
     {% for order in orders %}
     <tr>
-        <td><a href="{% url 'order_detail' id=order.id %}">{{ order.id }}</a></td>
-        <td>{{ order.total_price}}</td>
+        <td><a href="{% url 'order_detail' id=order.id %}" class="bold">{{ order.id }}</a></td>
+        <td>£&nbsp;{{ order.total_price}}</td>
         <td>{{ order.created_date }}</td>
     </tr>
     {% endfor %}
 </table>
+{% else %}
+Your order history is empty.
+{% endif %}
 {% endblock %}

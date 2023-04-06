@@ -3,20 +3,22 @@
 All Items
 {% endblock %}
 {% block page_content %}
-    <h1>Your Order</h1>
-    {% for item in basket %}
-        {% with product=item.product %}
-            <p>You put {{product.quantity }} of our <b> {{ product.name }} </b> which each cost {{ item.price }} and cost {{ item.total_price }} for in your basket.</p>
-        {% endwith %}
-    {% endfor %}
-    <p>The total for all of this fun is: {{ basket.get_total_price }} </p>
-    <form action="/payment/" method="post">
-       {% csrf_token %}
-       <p>Complete the form to buy this all for yourself</p>
-       <input type='text' name='first_name' value="{{user.first_name}}" disabled>
-       <input type='text' name='last_name' value="{{user.last_name}}" disabled><br>
-       <label for 'payment'>Card Type:</label><input type='text' size=5 name='payment'>
-       <input type="number" name="total" value="Total Payment:">
-       <input type="submit" value="Payment">
-    </form>
+<h1>Payment for Your Order</h1>
+<div style="min-width: 1000px">
+    <div class="row">
+        {% for item in basket %}
+        <div class="col-4 my-2">
+            {% include 'item_card_order.html' with item=item.item.item link=item.item.link quantity=item.quantity %}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="mt-4 align-right" style="width: 400px">
+        <h4>Amount:&nbsp;£&nbsp;{{ basket.get_total_price }}</h4>
+        <form action="/payment/" method="post" class="mt-3">
+            {% csrf_token %}
+            {{form}}
+            <input type="submit" value="Payment" class="btn-primary btn-w mt-4">
+        </form>
+    </div>
+</div>
 {% endblock %}

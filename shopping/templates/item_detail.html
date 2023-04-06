@@ -26,7 +26,7 @@
         <form action="{% url 'basket_add' items_with_image.item.id %}" method="post">
             {{ basket_item_form }}
             {% csrf_token %}
-            <input type="submit" class="btn-w my-10" value="Add to Cart">
+            <input type="submit" class="btn-primary btn-w my-10" value="Add to Cart">
         </form>
     </div>
 </div>
