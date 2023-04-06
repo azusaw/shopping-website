@@ -157,11 +157,6 @@
     text-underline-offset: 6px;
 }
 
-label.required::after {
-   content: ' *';
-   color: orangered;
-}
-
 .order-list-table {
     color: #666;
     background-color: white;
