@@ -33,6 +33,9 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'shopping-website.herokuapp.com']
 
 # Application definition
 
+# use this for the shoping basket/cart
+BASKET_SESSION_ID = 'basket'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

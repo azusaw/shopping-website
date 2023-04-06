@@ -89,6 +89,28 @@
     font-weight: bold;
 }
 
+.btn-primary, .btn-secondary {
+    color: white;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    padding: 5px 10px;
+}
+
+.btn-primary {
+    background-color: #867070;
+}
+
+.btn-secondary {
+    background-color: #D5B4B4;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    background-color: white;
+    color: #867070;
+    border: 1px solid  #867070;
+    transition: all 0.2s ease;
+}
+
 .btn-w {
     display: inline-block;
     font-size: 24px;
@@ -133,4 +155,15 @@
     font-style: normal;
     font-weight: normal;
     text-decoration: inherit;
+}
+
+.quantity {
+    width: 60px;
+}
+
+.total-price {
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-decoration: underline 2px dotted #867070;
+    text-underline-offset: 6px;
 }

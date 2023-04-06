@@ -1,10 +1,14 @@
 from django.urls import path, include
 
+from shopping.views import basket, general, item
 from . import views
 
 urlpatterns = [
-    path('', views.item_list, name='items'),
-    path('detail/<slug:item_id>', views.item_detail, name='detail'),
+    path('', views.item.item_list, name='items'),
+    path('detail/<slug:item_id>', views.item.item_detail, name='detail'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('signup/', views.signup, name='signup'),
+    path('signup/', views.general.signup, name='signup'),
+    path('basket_add/<int:item_id>/', views.basket.basket_add, name='basket_add'),
+    path('basket_remove/<int:item_id>/', views.basket.basket_remove, name='basket_remove'),
+    path('basket_detail/', views.basket.basket_detail, name='basket_detail'),
 ]

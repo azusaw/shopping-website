@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}
+Your basket
+{% endblock %}
+{% block page_content %}
+<h1>Your Basket:</h1>
+<table>
+    <div class="align-right total-price">
+        Total:&emsp;£&nbsp;{{ basket.get_total_price }}
+    </div>
+    {% for item in basket %}
+    {% with product=item.item.item %}
+    <tr>
+        <td>
+            <img src="{{item.item.link}}" class="card-img-top pa-4" alt="item-img">
+        </td>
+        <td>
+            <h4>{{ product.display_name }}</h4>
+            <h5>£&nbsp;{{ product.price }}</h5>
+            <form action="{% url 'basket_add' product.id %}" method="post">
+                <div class="d-flex" style="justify-content: flex-end;">
+                    {{ item.update_quantity_form.quantity }}
+                    {{ item.update_quantity_form.override }}
+                    <input type="submit" value="Update" class="ml-3 btn-primary">
+                    {% csrf_token %}
+                </div>
+            </form>
+            <div class="align-right my-3">
+                <form action="{% url 'basket_remove' product.id %}" method="post">
+                    <input type="submit" value="Remove this Item" class="btn-secondary">
+                    {% csrf_token %}
+                </form>
+            </div>
+            <p class="align-right mt-4" style="font-size: 1.1rem">
+                SubTotal:&emsp;£&nbsp;{{ item.total_price }}
+            </p>
+        </td>
+    </tr>
+    {% endwith %}
+    {% endfor %}
+</table>
+{% endblock %}

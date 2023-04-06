@@ -12,3 +12,12 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'password1', 'password2', 'first_name', 'last_name',)
+
+
+class BasketAddItemForm(forms.Form):
+    # Maximum 30 each product
+    quantity = forms.fields.ChoiceField(
+        choices=((x, x) for x in range(1, 31)),
+        widget=forms.widgets.Select(attrs={'class': 'form-control quantity'})
+    )
+    override = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)
