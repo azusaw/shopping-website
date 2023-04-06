@@ -2,11 +2,11 @@
 <aside>
     <header class="header">
         <div class="d-flex">
-            <a href="{% url 'items' %}">
+            <a href="{% url 'item_list' %}">
                 <img src="{% static 'logo.svg' %}" width="200" style="margin: 0.5rem"/>
             </a>
             <div style="margin-left: auto; display: flex;">
-                <form class="mt-2 mb-3 mr-4" action="{% url 'items' %}" method="get" id="search">
+                <form class="mt-2 mb-3 mr-4" action="{% url 'item_list' %}" method="get" id="search">
                     <input type="search" id="keyword" name="keyword" class="form-control fa-placeholder"
                            placeholder="&#xF002;&emsp;Keyword + Enter ( Watch, Jeans.. )" aria-label="Search"
                            style="width: 340px">

@@ -11,7 +11,7 @@
                 <div id="gender" class="accordion-collapse collapse" data-bs-parent="#accordion">
                     <div class="accordion-body">
                         {% for item in menu.gender %}
-                        <a href="{% url 'items' %}?gender={{item.id}}">
+                        <a href="{% url 'item_list' %}?gender={{item.id}}">
                             <div class="col-4 my-2">
                                 {{ item }}
                             </div>
@@ -31,7 +31,7 @@
                     <div class="mx-auto" style="max-width: 200px; padding: 30px 10px">
                         {% for item in menu.base_colour %}
                         {% if item.hex_code %}
-                        <a href="{% url 'items' %}?colour={{item.hex_code|slice:'1:'}}">
+                        <a href="{% url 'item_list' %}?colour={{item.hex_code|slice:'1:'}}">
                             <span class="color-box" style="background-color: {{ item.hex_code }}"></span>
                         </a>
                         {% endif %}
@@ -50,12 +50,12 @@
                     <div class="accordion-body">
                         {% for k, v in menu.master_sub_category.items %}
                         <div class="my-2">
-                            <a href="{% url 'items' %}?master={{k}}" class="side-bar-category">
+                            <a href="{% url 'item_list' %}?master={{k}}" class="side-bar-category">
                                 {{ k }}
                             </a>
                             {% for i in v %}
                             <div class="side-bar-sub-category">
-                                >&ensp;<a href="{% url 'items' %}?sub={{i}}">{{ i }}</a>
+                                >&ensp;<a href="{% url 'item_list' %}?sub={{i}}">{{ i }}</a>
                             </div>
                             {% endfor %}
                             <br/>

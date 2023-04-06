@@ -4,8 +4,8 @@ from shopping.views import basket, general, item
 from . import views
 
 urlpatterns = [
-    path('', views.item.item_list, name='items'),
-    path('detail/<slug:item_id>', views.item.item_detail, name='detail'),
+    path('', views.item.item_list, name='item_list'),
+    path('detail/<slug:item_id>', views.item.item_detail, name='item_detail'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('signup/', views.general.signup, name='signup'),
     path('basket_add/<int:item_id>/', views.basket.basket_add, name='basket_add'),
