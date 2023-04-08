@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
 
@@ -5,12 +6,18 @@ from shopping.models import Order, OrderItem, Customer, Image
 from shopping.views.menu import get_menu_info
 
 
+@login_required
 def order_list(request):
-    customer = Customer.objects.get(user=request.user)
-    orders = Order.objects.all().filter(customer=customer)
+    # Staff user can see every order
+    if request.user.is_staff:
+        orders = Order.objects.all()
+    else:
+        customer = Customer.objects.get(user=request.user)
+        orders = Order.objects.all().filter(customer=customer)
     return render(request, 'order_list.html', {'menu': get_menu_info(), 'orders': orders})
 
 
+@login_required
 def order_detail(request, id):
     order = get_object_or_404(Order, id=id)
     customer = order.customer
