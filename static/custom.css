@@ -82,6 +82,10 @@
     color: white;
     padding: 5px 15px;
     border-radius: 5px;
+
+    &:hover: {
+    text-decoration: none !important;
+    }
 }
 
 .price {
