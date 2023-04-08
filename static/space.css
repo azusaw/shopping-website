@@ -6,6 +6,10 @@
     text-align: right;
 }
 
+.align-left {
+    text-align: left;
+}
+
 .my-1 {
     margin: 5px 0;
 }
@@ -68,4 +72,8 @@
 
 .px-2 {
     padding: 0 10px;
+}
+
+.pt-4 {
+    padding-top: 20px;
 }

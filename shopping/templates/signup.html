@@ -5,7 +5,7 @@ Sign Up
 {% block page_content %}
 
 <h1>Sign Up</h1>
-<div style="text-align: center; max-width: 580px; margin: 0 auto;">
+<div style="margin: 0 auto; text-align: center; max-width: 500px;">
     <form method="post">
         {% if errors %}
         <div class="alert alert-danger" role="alert">
@@ -13,18 +13,20 @@ Sign Up
         </div>
         {% endif %}
         {% csrf_token %}
-        <div class="my-4">
+        <div class="my-4 row">
             {% for field in form %}
-            <div>
+            <div class="col-5 my-2 text-left">
                 {{ field.label_tag }}
+            </div>
+            <div class="col-7 my-2">
                 {{ field }}
             </div>
             {% endfor %}
         </div>
-        <div class="alert alert-info">
+        <div class="alert alert-warning pt-4 align-left">
             {{ password_helper }}
         </div>
-        <input class="btn btn-lg my-6" type="submit" name="SignUp"/>
+        <input class="btn-primary" style="margin: 1rem auto; width: 300px" type="submit" name="SignUp" value="SignUp"/>
     </form>
 </div>
 {% endblock %}

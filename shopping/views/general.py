@@ -29,7 +29,8 @@ def signup(request):
         return redirect('/')
 
     return render(request, 'signup.html',
-                  {'form': form, 'password_helper': form.fields["password1"].help_text, 'errors': errors})
+                  {'menu': get_menu_info(), 'form': form, 'password_helper': form.fields["password1"].help_text,
+                   'errors': errors})
 
 
 @login_required
