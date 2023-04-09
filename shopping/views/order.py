@@ -10,10 +10,10 @@ from shopping.views.menu import get_menu_info
 def order_list(request):
     # Staff user can see every order
     if request.user.is_staff:
-        orders = Order.objects.all()
+        orders = Order.objects.all().order_by("-created_date")
     else:
         customer = Customer.objects.get(user=request.user)
-        orders = Order.objects.all().filter(customer=customer)
+        orders = Order.objects.all().filter(customer=customer).order_by("-created_date")
     return render(request, 'order_list.html', {'menu': get_menu_info(), 'orders': orders})
 
 

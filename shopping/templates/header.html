@@ -24,8 +24,13 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
                             <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                            {% if request.user.is_staff or request.user.is_superuser %}
+                            <a class="dropdown-item" href="{% url 'order_list' %}">All Order History</a>
+                            <a class="dropdown-item" href="#">Dash Board</a>
+                            {% else %}
                             <a class="dropdown-item" href="{% url 'order_list' %}">Order History</a>
                             <a class="dropdown-item" href="{% url 'basket_detail' %}">Basket</a>
+                            {% endif %}
                             <hr class="dropdown-divider">
                             <a class="dropdown-item" href="{% url 'logout' %}">Sign-out</a>
                         </div>

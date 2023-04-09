@@ -4,9 +4,14 @@ Order Detail: {{order.id}}
 {% endblock %}
 {% block page_content %}
 <h1>Order Detail: {{order.id}}</h1>
-<p>Order:
-    This is order {{ order.id }} for
-    {{user.first_name}} {{user.last_name}}. The order was placed on: {{ order.created_date }}
+<p>
+    <b>ID:</b>&ensp;{{ order.id }}<br />
+    <b>Date:</b>&ensp;{{ order.created_date }}<br />
+    <b>Total Price: </b>&ensp;£&nbsp;{{ order.total_price }}
+</p>
+<p>
+    <b>Customer ID:</b>&ensp;{{user.id}} <br />
+    <b>Customer Name:</b>&ensp;{{user.first_name}}&nbsp;{{user.last_name}}
 </p>
 <div class="row">
     {% for item in items_with_image %}

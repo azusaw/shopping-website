@@ -168,6 +168,7 @@
     padding: 10px;
     font-size: 1.1rem;
     overflow: hidden;
+    border: 1px solid white;
 }
 
 .order-list-table tr {
@@ -184,4 +185,12 @@
 .order-list-table td {
     padding: 10px;
     text-align: right;
+}
+
+.order-list-table tr:nth-child(odd){
+  background-color: #f4f0f0;
+}
+
+.order-list-table tr:nth-child(even){
+  background-color: white;
 }
