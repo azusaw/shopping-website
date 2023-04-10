@@ -4,7 +4,9 @@ from django.contrib.auth.models import User
 
 
 class SignUpForm(UserCreationForm):
-    """ Form used signup user in /signup page """
+    """
+    Form used for signup user in /signup page
+    """
     username = forms.CharField(max_length=30)
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
@@ -17,6 +19,9 @@ class SignUpForm(UserCreationForm):
 
 
 class BasketAddItemForm(forms.Form):
+    """
+    Form used for updating quantity in /basket page
+    """
     # Maximum 30 for each product
     quantity = forms.fields.ChoiceField(
         choices=((x, x) for x in range(1, 31)),
@@ -26,22 +31,30 @@ class BasketAddItemForm(forms.Form):
 
 
 class PaymentForm(forms.Form):
+    """
+    Form used for payment in /payment page
+    """
     name = forms.CharField(
         label="Name",
         widget=forms.widgets.TextInput(attrs={'class': 'form-control'})
     )
     card_number = forms.CharField(
         label="CardNumber",
+        max_length=16,
         widget=forms.widgets.TextInput(attrs={'class': 'form-control'})
     )
     expire_info = forms.CharField(
         label="Expire Info",
-        widget=forms.widgets.TextInput(attrs={'class': 'form-control'})
+        max_length=5,
+        widget=forms.widgets.TextInput(attrs={'class': 'form-control', 'placeholder': 'mm/yy'})
     )
     override = forms.BooleanField(required=False, initial=False, widget=forms.HiddenInput)
 
 
 class CustomerProfileForm(forms.Form):
+    """
+    Form used for updating customer information in /profile page
+    """
     first_name = forms.CharField(
         label="First Name",
         disabled=True,

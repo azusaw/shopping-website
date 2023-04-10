@@ -8,6 +8,9 @@ from shopping.views.menu import get_menu_info
 
 
 def item_list(request):
+    """
+    Render '/' page with items filtered by search condition
+    """
     title = "All item"
     keyword = ""
     gender = ""
@@ -51,12 +54,15 @@ def item_list(request):
     items_with_image = Image.objects.all().select_related("item").filter(*where)
     # FIX ME
     items = items_with_image.select_related("item__base_colour").filter(*where_color)[:10]
-    return render(request, 'item_list.html',
+    return render(request, 'pages/item_list.html',
                   {'title': title, 'menu': get_menu_info(), 'items': items, 'cnt': len(items)})
 
 
 def item_detail(request, item_id):
+    """
+    Render '/detail/<item_id>' page with item data
+    """
     items_with_image = Image.objects.select_related("item").get(item_id=item_id)
     basket_item_form = BasketAddItemForm()
-    return render(request, 'item_detail.html',
+    return render(request, 'pages/item_detail.html',
                   {'menu': get_menu_info(), 'items_with_image': items_with_image, 'basket_item_form': basket_item_form})

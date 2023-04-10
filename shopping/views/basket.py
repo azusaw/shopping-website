@@ -10,9 +10,9 @@ from shopping.views.menu import get_menu_info
 
 
 class Basket(object):
-    # a data transfer object to shift items from cart to page
-    # inspired by Django 3 by Example (2020) by Antonio Mele
-    # https://github.com/PacktPublishing/Django-3-by-Example/
+    """
+    Basket for keeping selected items
+    """
 
     def __init__(self, request):
         self.session = request.session
@@ -43,7 +43,9 @@ class Basket(object):
             yield item
 
     def __len__(self):
-        """Count all items in the basket"""
+        """
+        Count all items in the basket
+        """
         return sum(item['quantity'] for item in self.basket.values())
 
     def add(self, item, quantity=1, override_quantity=False):
@@ -66,7 +68,7 @@ class Basket(object):
 
     def remove(self, item):
         """
-        Remove a product from the basket.
+        Remove a product from the basket
         """
         item_id = str(item.id)
         if item_id in self.basket:
@@ -79,30 +81,42 @@ class Basket(object):
         self.save()
 
     def get_total_price(self):
+        """
+        Calculate current total price
+        """
         return sum(Decimal(item['price']) * item['quantity'] for item in self.basket.values())
 
 
 @require_POST
 def basket_add(request, item_id):
+    """
+    Add item into basket
+    """
     basket = Basket(request)
     item = get_object_or_404(Item, id=item_id)
     form = BasketAddItemForm(request.POST)
     if form.is_valid():
         cd = form.cleaned_data
         basket.add(item=item, quantity=cd['quantity'], override_quantity=cd['override'])
-    return redirect('basket_detail')
+    return redirect('basket')
 
 
 @require_POST
 def basket_remove(request, item_id):
+    """
+    Remove item from basket
+    """
     basket = Basket(request)
     product = get_object_or_404(Item, id=item_id)
     basket.remove(product)
-    return redirect('basket_detail')
+    return redirect('basket')
 
 
-def basket_detail(request):
+def basket(request):
+    """
+    Render '/basket' page
+    """
     basket = Basket(request)
     for item in basket:
         item['update_quantity_form'] = BasketAddItemForm(initial={'quantity': item['quantity'], 'override': True})
-    return render(request, 'basket.html', {'menu': get_menu_info(), 'basket': basket})
+    return render(request, 'pages/basket.html', {'menu': get_menu_info(), 'basket': basket})

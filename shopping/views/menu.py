@@ -2,6 +2,9 @@ from shopping.models import SubCategory, Gender, BaseColour, ArticleType
 
 
 def get_menu_info():
+    """
+    Provide data which is required for side menu
+    """
     gender = Gender.objects.all().order_by("id")
     sub_category = SubCategory.objects.all()
     article_type = ArticleType.objects.all()

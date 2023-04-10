@@ -18,7 +18,7 @@ Order History
         <td>£&nbsp;{{ order.total_price}}</td>
         <td>{{ order.created_date }}</td>
         <td>
-            <a href="{% url 'order_detail' id=order.id %}" class="btn-primary mx-auto">Detail</a>
+            <a href="{% url 'order_detail' order_id=order.id %}" class="btn-primary mx-auto">Detail</a>
         </td>
     </tr>
     {% endfor %}

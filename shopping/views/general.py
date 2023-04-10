@@ -1,5 +1,6 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 
@@ -10,6 +11,9 @@ from shopping.views.menu import get_menu_info
 
 
 def signup(request):
+    """
+    Render '/signup' page and create new customer user
+    """
     form = SignUpForm(request.POST)
     errors = []
 
@@ -30,41 +34,51 @@ def signup(request):
         login(request, user)
         return redirect('/')
 
-    print(form.fields["password1"].help_text)
-
-    return render(request, 'signup.html',
+    return render(request, 'pages/signup.html',
                   {'menu': get_menu_info(), 'form': form, 'password_helper': form.fields["password1"].help_text,
                    'errors': errors})
 
 
 @login_required
 def login(request):
+    """
+    Login with django auth
+    """
     user = request.user
 
     if user.is_authenticated:
-        return render(request, 'items.html')
+        redirect('/')
     return redirect('login')
 
 
 def logout(request):
+    """
+    Delete session id cookie to logout
+    """
     response = HttpResponseRedirect('/')
     response.delete_cookie("sessionid")
     return response
 
 
 def purchase(request):
+    """
+    Render '/purchase' page with basket data
+    """
     if request.user.is_authenticated:
         user = request.user
         form = PaymentForm(initial={
             'name': f"{user.first_name} {user.last_name}",
         })
         basket = Basket(request)
-        return render(request, 'purchase.html',
+        return render(request, 'pages/purchase.html',
                       {'menu': get_menu_info(), 'basket': basket, 'user': user, 'form': form})
     return redirect('login')
 
 
 def payment(request):
+    """
+    Process payment and redirect to '/thanks' page
+    """
     basket = Basket(request)
     user = request.user
     customer = get_object_or_404(Customer, user_id=user.id)
@@ -85,6 +99,9 @@ def payment(request):
 
 
 def profile(request):
+    """
+    Render '/profile' page with login user data
+    """
     errors = []
 
     # Not customer user does not have customer information
@@ -112,5 +129,5 @@ def profile(request):
         customer.save()
         return redirect('profile')
 
-    return render(request, 'customer_profile.html',
+    return render(request, 'pages/user_profile.html',
                   {'menu': get_menu_info(), 'form': form, 'errors': errors})

@@ -23,9 +23,9 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
 </head>
 <body>
-    {% include 'header.html' %}
+    {% include 'components/header.html' %}
     <main class="d-flex">
-        {% include 'side-bar.html' with menu=menu %}
+        {% include 'components/sidebar.html' with menu=menu %}
         <div class="d-flex flex-column contents">
             {% block content %}
                 {% block page_content %}
