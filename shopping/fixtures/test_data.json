@@ -1,0 +1,178 @@
+[
+  {
+    "model": "shopping.Gender",
+    "pk": "Men",
+    "fields": {
+      "id": "Men"
+    }
+  },
+  {
+    "model": "shopping.Gender",
+    "pk": "Women",
+    "fields": {
+      "id": "Women"
+    }
+  },
+  {
+    "model": "shopping.MasterCategory",
+    "pk": "Personal Care",
+    "fields": {
+      "id": "Personal Care"
+    }
+  },
+  {
+    "model": "shopping.MasterCategory",
+    "pk": "Apparel",
+    "fields": {
+      "id": "Apparel"
+    }
+  },
+  {
+    "model": "shopping.SubCategory",
+    "pk": "Fragrance",
+    "fields": {
+      "id": "Fragrance",
+      "master_category": "Personal Care"
+    }
+  },
+  {
+    "model": "shopping.SubCategory",
+    "pk": "Topwear",
+    "fields": {
+      "id": "Topwear",
+      "master_category": "Apparel"
+    }
+  },
+  {
+    "model": "shopping.ArticleType",
+    "pk": "Shirts",
+    "fields": {
+      "id": "Shirts",
+      "sub_category": "Topwear"
+    }
+  },
+  {
+    "model": "shopping.ArticleType",
+    "pk": "Perfume and Body Mist",
+    "fields": {
+      "id": "Perfume and Body Mist",
+      "sub_category": "Fragrance"
+    }
+  },
+  {
+    "model": "shopping.BaseColour",
+    "pk": "Navy Blue",
+    "fields": {
+      "id": "Navy Blue",
+      "hex_code": "#0000ff"
+    }
+  },
+  {
+    "model": "shopping.BaseColour",
+    "pk": "Gold",
+    "fields": {
+      "id": "Gold",
+      "hex_code": "#ffd700"
+    }
+  },
+  {
+    "model": "shopping.Item",
+    "pk": "15970",
+    "fields": {
+      "id": "15970",
+      "gender": "Men",
+      "master_category": "Apparel",
+      "sub_category": "Topwear",
+      "article_type": "Shirts",
+      "base_colour": "Navy Blue",
+      "season": "Fall",
+      "year": 2011,
+      "usage": "Casual",
+      "display_name": "Turtle Check Men Navy Blue Shirt",
+      "price": 18.37
+    }
+  },
+  {
+    "model": "shopping.Item",
+    "pk": "36934",
+    "fields": {
+      "id": "36934",
+      "gender": "Women",
+      "master_category": "Personal Care",
+      "sub_category": "Fragrance",
+      "article_type": "Perfume and Body Mist",
+      "base_colour": "Gold",
+      "season": "Spring",
+      "year": 2017,
+      "usage": "Casual",
+      "display_name": "Giorgio Armani Women Idole Perfume",
+      "price": 50.00
+    }
+  },
+  {
+    "model": "shopping.Image",
+    "pk": "15970",
+    "fields": {
+      "item": "15970",
+      "link": "http://assets.myntassets.com/v1/images/style/properties/7a5b82d1372a7a5c6de67ae7a314fd91_images.jpg"
+    }
+  },
+  {
+    "model": "shopping.Image",
+    "pk": "36934",
+    "fields": {
+      "item": "36934",
+      "link": "http://assets.myntassets.com/v1/images/style/properties/b0d3dcd6aaa7274486236fa267ef8cb5_images.jpg"
+    }
+  },
+  {
+    "model": "auth.User",
+    "pk": 1,
+    "fields": {
+      "id": 1,
+      "username": "test-user"
+    }
+  },
+  {
+    "model": "shopping.Customer",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "phone": "012345678",
+      "address": "123 Aberdeen",
+      "created_date": "2023-04-05 19:38:50.66718900Z"
+    }
+  },
+  {
+    "model": "shopping.Order",
+    "pk": 33,
+    "fields": {
+      "id": 33,
+      "customer": 1,
+      "total_price": 86.78,
+      "created_date": "2023-04-06 17:00:01.99307700Z"
+    }
+  },
+  {
+    "model": "shopping.OrderItem",
+    "pk": 19,
+    "fields": {
+      "id": 19,
+      "order": 33,
+      "item": "15970",
+      "price": 18.37,
+      "quantity": 2
+    }
+  },
+  {
+    "model": "shopping.OrderItem",
+    "pk": 20,
+    "fields": {
+      "id": 20,
+      "order": 33,
+      "item": "36934",
+      "price": 50.00,
+      "quantity": 1
+    }
+  }
+]
