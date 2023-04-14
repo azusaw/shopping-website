@@ -194,3 +194,18 @@
 .order-list-table tr:nth-child(even){
   background-color: white;
 }
+
+.chart-bar, .chart-pie {
+    margin: 2rem 0;
+    width: 500px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.chart-bar {
+    padding: 30px 20px 10px;
+}
+
+.chart-pie {
+    padding: 20px;
+}

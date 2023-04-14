@@ -136,3 +136,96 @@ def profile(request):
 
     return render(request, 'pages/user_profile.html',
                   {'menu': get_menu_info(), 'form': form, 'errors': errors})
+
+
+def dashboard(request):
+    """
+    Render '/dashboard' page with orders data
+    """
+    chart_colours = {
+        'background': [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(201, 203, 207, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)'
+        ],
+        'border': [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)',
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+        ],
+    }
+    if request.user.is_staff or request.user.is_superuser:
+        # Count order group by month
+        order_count = Order.objects.annotate(
+            month=TruncMonth('created_date')).values(
+            'month').annotate(
+            count=Count('id')).values('month', 'count')
+
+        # Total sales group by month
+        order_sales = Order.objects.annotate(
+            month=TruncMonth('created_date')).values(
+            'month').annotate(
+            count=Count('id')).values('month', 'count')
+
+        # Count order group by gender
+        gender_count = OrderItem.objects.select_related("item").values('item__gender').annotate(
+            count=Count('id')).values('item__gender', 'count')
+
+        # Count order group by master category
+        master_category_count = OrderItem.objects.select_related("item").values('item__master_category').annotate(
+            count=Count('id')).values('item__master_category', 'count')
+
+        # Count order group by sub category
+        sub_category_count = OrderItem.objects.select_related("item").values('item__sub_category').annotate(
+            count=Count('id')).values('item__sub_category', 'count')
+
+        # Count order group by article type
+        article_type_count = OrderItem.objects.select_related("item").values('item__article_type').annotate(
+            count=Count('id')).values('item__article_type', 'count')
+
+        # Count order group by base colour
+        base_colour_count = OrderItem.objects.select_related("item").values('item__base_colour').annotate(
+            count=Count('id')).values('item__base_colour', 'item__base_colour__hex_code', 'count')
+
+    else:
+        return redirect('login')
+
+    # FIXME: latest five month
+    return render(request, 'pages/dashboard.html',
+                  {'menu': get_menu_info(),
+                   'chart_colours': chart_colours,
+                   'order_count': {'label': [row["month"].month for row in order_count],
+                                   'data': [row["count"] for row in order_count]},
+                   'order_sales': {'label': [row["month"].month for row in order_sales],
+                                   'data': [row["count"] for row in order_sales]},
+                   'gender_count': {
+                       'label': [row["item__gender"] for row in gender_count],
+                       'data': [row["count"] for row in gender_count]},
+                   'master_category_count': {
+                       'label': [row["item__master_category"] for row in master_category_count],
+                       'data': [row["count"] for row in master_category_count]},
+                   'sub_category_count': {
+                       'label': [row["item__sub_category"] for row in sub_category_count],
+                       'data': [row["count"] for row in sub_category_count]},
+                   'article_type_count': {
+                       'label': [row["item__article_type"] for row in article_type_count],
+                       'data': [row["count"] for row in article_type_count]},
+                   'base_colour_count': {
+                       'label': [row["item__base_colour"] for row in base_colour_count],
+                       'colour': [row["item__base_colour__hex_code"] for row in base_colour_count],
+                       'data': [row["count"] for row in base_colour_count]},
+                   })

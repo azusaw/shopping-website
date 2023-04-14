@@ -4,66 +4,243 @@ Dashboard
 {% endblock %}
 {% block page_content %}
 <h1>Dashboard</h1>
-{{order_count}}<br/>
-{% for item in order_count.label %}}
-{{item}}
-{% endfor %}
-<div class="chart">
+<div class="chart-bar">
     <canvas id="order_count"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script type='text/javascript'>
-        const rows = JSON.parse({{order_count|safe}});
-        console.log(rows.label, rows.data)
-        const config = {
-            type: 'bar',
-                data: {
-                    labels: rows.label,
-                    datasets: [{
-                        label: 'Month',
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(255, 159, 64, 0.2)',
-                            'rgba(255, 205, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            ],
-                            borderColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(255, 159, 64)',
-                            'rgb(255, 205, 86)',
-                            'rgb(75, 192, 192)',
-                            'rgb(54, 162, 235)'
-                            ],
-                        borderWidth: 1.8,
-                        data: rows.data
+        const colours = JSON.parse("{{chart_colours|safe}}".replace(/'/g, "\""));
+        const rows1 = JSON.parse("{{order_count|safe}}".replace(/'/g, "\""));
+        const element1 = document.getElementById('order_count').getContext('2d');
+        const config1 = {
+        type: 'bar',
+            data: {
+                labels: rows1.label,
+                datasets: [{
+                    label: 'Month',
+                    backgroundColor: colours.background,
+                    borderColor: colours.border,
+                    borderWidth: 1.8,
+                    data: rows1.data
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
                     }]
                 },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    },
-                    legend: {
-                        display: false
-                    }
+                legend: {
+                    display: false
                 }
-
+            }
         }
-
-        const order_count = new Chart(
-            document.getElementById('order_count').getContext('2d'),
-            config
-        );
-
-
-
-
-
-
-
+        const order_count = new Chart(element1, config1);
+    </script>
+</div>
+<div class="chart-bar">
+    <canvas id="order_sales"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type='text/javascript'>
+        const rows2 = JSON.parse("{{order_sales|safe}}".replace(/'/g, "\""));
+        const element2 = document.getElementById('order_sales').getContext('2d');
+        const config2 = {
+            type: 'bar',
+            data: {
+                labels: rows2.label,
+                datasets: [{
+                    label: 'Month',
+                    backgroundColor: colours.background,
+                    borderColor: colours.border,
+                    borderWidth: 1.8,
+                    data: rows2.data
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                legend: {
+                    display: false
+                }
+            }
+        }
+        const order_sales = new Chart(element2, config2);
+    </script>
+</div>
+<div class="chart-pie">
+    <canvas id="gender_count"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type='text/javascript'>
+        const rows3 = JSON.parse("{{gender_count|safe}}".replace(/'/g, "\""));
+        const element3 = document.getElementById('gender_count').getContext('2d');
+        const config3 = {
+            type: 'doughnut',
+            data: {
+                labels: rows3.label,
+                datasets: [{
+                    label: 'Gender',
+                    backgroundColor: colours.background,
+                    borderColor: colours.border,
+                    borderWidth: 1.8,
+                    data: rows3.data
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            display: false
+                        },
+                        gridLines: {
+                            display: false,
+                        }
+                    }]
+                }
+            }
+        }
+        const gender_count = new Chart(element3, config3);
+    </script>
+</div>
+<div class="chart-pie">
+    <canvas id="master_category_count"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type='text/javascript'>
+        const rows4 = JSON.parse("{{master_category_count|safe}}".replace(/'/g, "\""));
+        const element4 = document.getElementById('master_category_count').getContext('2d');
+        const config4 = {
+            type: 'doughnut',
+            data: {
+                labels: rows4.label,
+                datasets: [{
+                    label: 'Master Category',
+                    backgroundColor: colours.background,
+                    borderColor: colours.border,
+                    borderWidth: 1.8,
+                    data: rows4.data
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            display: false
+                        },
+                        gridLines: {
+                            display: false,
+                        }
+                    }]
+                }
+            }
+        }
+        const master_category_count = new Chart(element4, config4);
+    </script>
+</div>
+<div class="chart-pie">
+    <canvas id="sub_category_count"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type='text/javascript'>
+        const rows5 = JSON.parse("{{sub_category_count|safe}}".replace(/'/g, "\""));
+        const element5 = document.getElementById('sub_category_count').getContext('2d');
+        const config5 = {
+            type: 'pie',
+            data: {
+                labels: rows5.label,
+                datasets: [{
+                    label: 'Sub Category',
+                    backgroundColor: colours.background,
+                    borderColor: colours.border,
+                    borderWidth: 1.8,
+                    data: rows5.data
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            display: false
+                        },
+                        gridLines: {
+                            display: false,
+                        }
+                    }]
+                }
+            }
+        }
+        const sub_category_count = new Chart(element5, config5);
+    </script>
+</div>
+<div class="chart-pie">
+    <canvas id="article_type_count"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type='text/javascript'>
+        const rows6 = JSON.parse("{{article_type_count|safe}}".replace(/'/g, "\""));
+        const element6 = document.getElementById('article_type_count').getContext('2d');
+        const config6 = {
+            type: 'doughnut',
+            data: {
+                labels: rows6.label,
+                datasets: [{
+                    label: 'Article Type',
+                    backgroundColor: colours.background,
+                    borderColor: colours.border,
+                    borderWidth: 1.8,
+                    data: rows6.data
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            display: false
+                        },
+                        gridLines: {
+                            display: false,
+                        }
+                    }]
+                }
+            }
+        }
+        const article_type_count = new Chart(element6, config6);
+    </script>
+</div>
+<div class="chart-pie">
+    <canvas id="base_colour_count"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type='text/javascript'>
+        const rows7 = JSON.parse("{{base_colour_count|safe}}".replace(/'/g, "\""));
+        const element7 = document.getElementById('base_colour_count').getContext('2d');
+        const config7 = {
+            type: 'doughnut',
+            data: {
+                labels: rows7.label,
+                datasets: [{
+                    label: 'Base Colour',
+                    backgroundColor: rows7.colour,
+                    borderColor: "lightgray",
+                    borderWidth: 1.8,
+                    data: rows7.data
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            display: false
+                        },
+                        gridLines: {
+                            display: false,
+                        }
+                    }]
+                }
+            }
+        }
+        const base_colour_count = new Chart(element7, config7);
     </script>
 </div>
 {% endblock %}
