@@ -1,6 +1,7 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
+from django.db.models.functions import TruncMonth
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 
@@ -64,21 +65,27 @@ def purchase(request):
     """
     Render '/purchase' page with basket data
     """
-    if request.user.is_authenticated:
-        user = request.user
-        form = PaymentForm(initial={
-            'name': f"{user.first_name} {user.last_name}",
-        })
-        basket = Basket(request)
-        return render(request, 'pages/purchase.html',
-                      {'menu': get_menu_info(), 'basket': basket, 'user': user, 'form': form})
-    return redirect('login')
+    # Only customer user can process purchase
+    if not request.user.is_authenticated or request.user.is_staff or request.user.is_superuser:
+        return redirect('login')
+
+    user = request.user
+    form = PaymentForm(initial={
+        'name': f"{user.first_name} {user.last_name}",
+    })
+    basket = Basket(request)
+    return render(request, 'pages/purchase.html',
+                  {'menu': get_menu_info(), 'basket': basket, 'user': user, 'form': form})
 
 
 def payment(request):
     """
     Process payment and redirect to '/thanks' page
     """
+    # Only customer user can process payment
+    if not request.user.is_authenticated or request.user.is_staff or request.user.is_superuser:
+        return redirect('login')
+
     basket = Basket(request)
     user = request.user
     customer = get_object_or_404(Customer, user_id=user.id)
@@ -86,9 +93,7 @@ def payment(request):
     order.refresh_from_db()
 
     for basket_item in basket:
-        print(basket_item['item'].item)
         item = basket_item['item'].item
-        print(item, basket_item['quantity'])
         order_item = OrderItem.objects.create(order=order, item=item, price=basket_item['price'],
                                               quantity=basket_item['quantity'])
         order_item.refresh_from_db()
@@ -104,8 +109,8 @@ def profile(request):
     """
     errors = []
 
-    # Not customer user does not have customer information
-    if request.user.is_staff or request.user.is_superuser:
+    # Only customer user can access to the profile page
+    if not request.user.is_authenticated or request.user.is_staff or request.user.is_superuser:
         return redirect('login')
 
     customer = Customer.objects.get(user=request.user)
