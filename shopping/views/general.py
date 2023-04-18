@@ -1,5 +1,6 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.db import models
 from django.db.models import Count
 from django.db.models.functions import TruncMonth
 from django.http import HttpResponseRedirect
@@ -169,17 +170,17 @@ def dashboard(request):
         ],
     }
     if request.user.is_staff or request.user.is_superuser:
-        # Count order group by month
+        # Count order group by month (Recent 5 months)
         order_count = Order.objects.annotate(
             month=TruncMonth('created_date')).values(
             'month').annotate(
-            count=Count('id')).values('month', 'count')
+            count=Count('id')).values('month', 'count').order_by('-month')[:5]
 
-        # Total sales group by month
+        # Total sales group by month (Recent 5 months)
         order_sales = Order.objects.annotate(
             month=TruncMonth('created_date')).values(
             'month').annotate(
-            count=Count('id')).values('month', 'count')
+            sales=models.Sum('total_price')).values('month', 'sales').order_by('-month')[:5]
 
         # Count order group by gender
         gender_count = OrderItem.objects.select_related("item").values('item__gender').annotate(
@@ -204,14 +205,13 @@ def dashboard(request):
     else:
         return redirect('login')
 
-    # FIXME: latest five month
     return render(request, 'pages/dashboard.html',
                   {'menu': get_menu_info(),
                    'chart_colours': chart_colours,
-                   'order_count': {'label': [row["month"].month for row in order_count],
+                   'order_count': {'label': [f"{row['month'].month}/{row['month'].year}" for row in order_count],
                                    'data': [row["count"] for row in order_count]},
-                   'order_sales': {'label': [row["month"].month for row in order_sales],
-                                   'data': [row["count"] for row in order_sales]},
+                   'order_sales': {'label': [f"{row['month'].month}/{row['month'].year}" for row in order_sales],
+                                   'data': [round(row["sales"], 2) for row in order_sales]},
                    'gender_count': {
                        'label': [row["item__gender"] for row in gender_count],
                        'data': [row["count"] for row in gender_count]},

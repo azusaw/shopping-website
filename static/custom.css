@@ -197,15 +197,15 @@
 
 .chart-bar, .chart-pie {
     margin: 2rem 0;
-    width: 500px;
-    background-color: white;
+    width: 700px;
+    background-color: snow;
     border-radius: 5px;
 }
 
 .chart-bar {
-    padding: 30px 20px 10px;
+    padding: 30px;
 }
 
 .chart-pie {
-    padding: 20px;
+    padding: 30px;
 }
