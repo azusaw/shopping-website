@@ -11,7 +11,7 @@ def item_list(request):
     """
     Render '/' page with items filtered by search condition
     """
-    title = "All item"
+    title = "All Items"
     keyword = ""
     gender = ""
     master = ""
@@ -52,8 +52,7 @@ def item_list(request):
         where_color.append(Q(item__base_colour__hex_code='#' + colour))
 
     items_with_image = Image.objects.all().select_related("item").filter(*where)
-    # FIX ME
-    items = items_with_image.select_related("item__base_colour").filter(*where_color)[:10]
+    items = items_with_image.select_related("item__base_colour").filter(*where_color)
     return render(request, 'pages/item_list.html',
                   {'title': title, 'menu': get_menu_info(), 'items': items, 'cnt': len(items)})
 

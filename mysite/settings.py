@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'bootstrap5',
     'fontawesomefree',
     'mathfilters',
+    'behave_django'
 ]
 
 MIDDLEWARE = [

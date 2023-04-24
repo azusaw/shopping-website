@@ -116,6 +116,10 @@ def basket(request):
     """
     Render '/basket' page
     """
+    # Only guest or customer user can access basket
+    if request.user.is_authenticated and (request.user.is_staff or request.user.is_superuser):
+        return redirect('login')
+
     basket = Basket(request)
     for item in basket:
         item['update_quantity_form'] = BasketAddItemForm(initial={'quantity': item['quantity'], 'override': True})
