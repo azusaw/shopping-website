@@ -32,7 +32,7 @@ def get_hex_code(colour_str):
     return hex_code
 
 
-def get_price():
+def get_random_price():
     """Return random price"""
     return round(random.randrange(500, 10000, 1) / 100, 2)
 
@@ -42,7 +42,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Delete data from tables to avoid duplicate values
-        print("START: DELETE ALL RECORDS FROM DATABASE")
+        print("START: DELETE ALL RECORDS FROM DATABASE　EXCEPT USER DATA")
         Item.objects.all().delete()
         Gender.objects.all().delete()
         MasterCategory.objects.all().delete()
@@ -95,7 +95,7 @@ class Command(BaseCommand):
                     year=row[7],
                     usage=row[8],
                     display_name=row[9],
-                    price=get_price()
+                    price=get_random_price()
                 )
                 items.append(item)
                 cnt += 1
