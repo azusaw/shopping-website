@@ -15,9 +15,10 @@ This website has some pages, access permission is managed by user role of login 
 ### For All User
 
 * [/](https://shopping-website.herokuapp.com/) ... Show all product list.
-* [/detail/<item_id>](https://shopping-website.herokuapp.com/detail/43993) ... Show product detail and add product to cart.
-* [/signup'](https://shopping-website.herokuapp.com/signup) ... Sign up customer user.
-* [/signin'](https://shopping-website.herokuapp.com/signin) ... Sign in by username and password.
+* [/detail/<item_id>](https://shopping-website.herokuapp.com/detail/43993) ... Show product detail and add product to
+  cart.
+* [/signup](https://shopping-website.herokuapp.com/signup) ... Sign up customer user.
+* [/signin](https://shopping-website.herokuapp.com/signin) ... Sign in by username and password.
 
 ### For Customer User
 
@@ -26,8 +27,7 @@ This website has some pages, access permission is managed by user role of login 
 * [/order/<order_id>](https://shopping-website.herokuapp.com/order/???) ... Show order detail of selected order.
 * [/thanks/<order_id>](https://shopping-website.herokuapp.com/thanks/???) ... Thanks page for order.
 * [/basket](https://shopping-website.herokuapp.com/basket) ... Show current basket and proceed purchase.
-* [/purchase](https://shopping-website.herokuapp.com/purchase) ... Process purchase.
-* [/payment](https://shopping-website.herokuapp.com/payment) ... Input payment information to complete an order.
+* [/purchase](https://shopping-website.herokuapp.com/purchase) ... Input payment information to complete an order.
 
 ### For Staff User(Administrator)
 
@@ -35,13 +35,12 @@ This website has some pages, access permission is managed by user role of login 
 * [/dashboard](https://shopping-website.herokuapp.com/dashboard) ... Show charts for analysing purchase data.
 * [/admin](https://shopping-website.herokuapp.com/admin) ... Add new data into database.
 
-`All visitor` can see products but if visitor want to add to basket, sign up or login is needed.
+`All visitor` can see products but if visitor want to process purchase, sign up or login is needed.
 
-`Customers` can add items into basket, complete an order, check own order history.
+`Customers` can add items into basket, complete an order, check own order history and profile.
 
 `Staffs(Administrator)` can check all orders history and dashboard to manage this website.
 Also, they can add new item and update exist item information by using Django default admin function.
-
 
 ## How to Start Server
 
