@@ -42,6 +42,14 @@ Your basket
 </table>
 <a href="{% url 'purchase' %}" class="btn-w btn-primary my-5">Proceed with Purchase</a>
 {% else %}
-Your basket is empty.
+{% load static %}
+<div class="my-4 align-center" style="width: 70vw">
+    <div class="my-4">
+        <img alt="basket" src="{% static 'basket.png' %}" width="300px" style="opacity: 0.9"/>
+    </div>
+    <div class="my-4" style="font-size: 1.2rem;line-height: 2.4rem">
+        Your basket is empty.
+    </div>
+</div>
 {% endif %}
 {% endblock %}

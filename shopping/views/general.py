@@ -101,7 +101,7 @@ def payment(request):
 
     basket.clear()
     request.session['deleted'] = 'thanks for your purchase'
-    return redirect("thanks", id=order.id)
+    return redirect("thanks", order_id=order.id)
 
 
 def profile(request):

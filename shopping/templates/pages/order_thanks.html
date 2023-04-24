@@ -4,6 +4,10 @@ Thank you for shopping!
 {% endblock %}
 {% block page_content %}
 <h1>Thank you for shopping with us!</h1>
+{% load static %}
+<div class="align-center my-4">
+    <img alt="shopping" src="{% static 'shopping.png' %}" width="350px" style="opacity: 0.6"/>
+</div>
 <div class="my-4" style="font-size: 1.2rem;line-height: 2.4rem">
     Your order number is <b>{{order_id}}</b>.<br/>
     Please wait 3-5 working days for the product to arrive.
