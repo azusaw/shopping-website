@@ -23,12 +23,12 @@ def get_hex_code(colour_str):
         colour = 'mediumpurple'
     elif colour == 'peach':
         colour = 'lightpink'
-    elif colour == 'charcoal' or colour == 'steel' or colour == 'taupe' or colour == 'melange':
+    elif colour == 'charcoal' or colour == 'steel' or colour == 'taupe' or colour == 'melange' or colour == 'metallic':
         colour = 'gray'
     try:
         hex_code = webcolors.name_to_hex(colour)
     except Exception:
-        hex_code = None
+        hex_code = "#6495ed"
     return hex_code
 
 

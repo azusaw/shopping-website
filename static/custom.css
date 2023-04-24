@@ -196,8 +196,8 @@
 }
 
 .chart-bar, .chart-pie {
-    margin: 2rem 0;
-    width: 700px;
+    margin: 2rem auto;
+    max-width: 850px;
     background-color: snow;
     border-radius: 5px;
 }

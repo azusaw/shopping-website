@@ -4,225 +4,248 @@ Dashboard
 {% endblock %}
 {% block page_content %}
 <h1>Dashboard</h1>
-<div class="chart-bar">
-    <h3><i class="fa-solid fa-face-smile mr-3"></i>Order Count of Month</h3>
-    <canvas id="order_count"></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script type='text/javascript'>
-        const colours = JSON.parse("{{chart_colours|safe}}".replace(/'/g, "\""));
-        const rows1 = JSON.parse("{{order_count|safe}}".replace(/'/g, "\""));
-        const element1 = document.getElementById('order_count').getContext('2d');
-        const config1 = {
-        type: 'bar',
-            data: {
-                labels: rows1.label,
-                datasets: [{
-                    label: 'Order Count',
-                    backgroundColor: colours.background,
-                    borderColor: colours.border,
-                    borderWidth: 1.8,
-                    data: rows1.data
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
+<div class="row gx-5">
+    <div class="chart-bar col-6">
+        <h3><i class="fa-solid fa-face-smile mr-3"></i>Order Count of Month</h3>
+        <canvas id="order_count"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <script type='text/javascript'>
+            const colours = JSON.parse("{{chart_colours|safe}}".replace(/'/g, "\""));
+            const rows1 = JSON.parse("{{order_count|safe}}".replace(/'/g, "\""));
+            const element1 = document.getElementById('order_count').getContext('2d');
+            const config1 = {
+                type: 'line',
+                data: {
+                    labels: rows1.label,
+                    datasets: [{
+                        label: 'Order Count',
+                        backgroundColor: colours.background[0],
+                        borderColor: colours.border[0],
+                        borderWidth: 3,
+                        pointStyle: 'circle',
+                        pointRadius: 5,
+                        pointHoverRadius: 10,
+                        data: rows1.data
                     }]
                 },
-                legend: {
-                    display: false
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    legend: {
+                        display: false
+                    }
                 }
             }
-        }
-        const order_count = new Chart(element1, config1);
-    </script>
-</div>
-<div class="chart-bar">
-    <h3><i class="fas fa-pound-sign mr-3"></i>Order Sales of Month</h3>
-    <canvas id="order_sales"></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script type='text/javascript'>
-        const rows2 = JSON.parse("{{order_sales|safe}}".replace(/'/g, "\""));
-        const element2 = document.getElementById('order_sales').getContext('2d');
-        const config2 = {
-            type: 'bar',
-            data: {
-                labels: rows2.label,
-                datasets: [{
-                    label: 'Sales (£)',
-                    backgroundColor: colours.background,
-                    borderColor: colours.border,
-                    borderWidth: 1.8,
-                    data: rows2.data
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
+            const order_count = new Chart(element1, config1);
+        </script>
+    </div>
+    <div class="chart-bar col-6">
+        <h3><i class="fas fa-pound-sign mr-3"></i>Order Sales of Month</h3>
+        <canvas id="order_sales"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <script type='text/javascript'>
+            const rows2 = JSON.parse("{{order_sales|safe}}".replace(/'/g, "\""));
+            const element2 = document.getElementById('order_sales').getContext('2d');
+            const config2 = {
+                type: 'line',
+                data: {
+                    labels: rows2.label,
+                    datasets: [{
+                        label: 'Sales (£)',
+                        backgroundColor: colours.background[1],
+                        borderColor: colours.border[1],
+                        borderWidth: 3,
+                        pointStyle: 'circle',
+                        pointRadius: 5,
+                        pointHoverRadius: 10,
+                        data: rows2.data
                     }]
                 },
-                legend: {
-                    display: false
-                }
-            }
-        }
-        const order_sales = new Chart(element2, config2);
-    </script>
-</div>
-<div class="chart-pie">
-    <h3><i class="fas fa-restroom mr-3"></i>Order Item Count by Gender</h3>
-    <canvas id="gender_count"></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script type='text/javascript'>
-        const rows3 = JSON.parse("{{gender_count|safe}}".replace(/'/g, "\""));
-        const element3 = document.getElementById('gender_count').getContext('2d');
-        const config3 = {
-            type: 'pie',
-            data: {
-                labels: rows3.label,
-                datasets: [{
-                    label: 'Gender',
-                    backgroundColor: colours.background,
-                    borderColor: colours.border,
-                    borderWidth: 1.8,
-                    data: rows3.data
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    legend: {
                         display: false
-                    }]
+                    }
                 }
             }
-        }
-        const gender_count = new Chart(element3, config3);
-    </script>
-</div>
-<div class="chart-pie">
-    <h3><i class="fas fa-folder mr-3"></i>Order Item Count by Master Category</h3>
-    <canvas id="master_category_count"></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script type='text/javascript'>
-        const rows4 = JSON.parse("{{master_category_count|safe}}".replace(/'/g, "\""));
-        const element4 = document.getElementById('master_category_count').getContext('2d');
-        const config4 = {
-            type: 'pie',
-            data: {
-                labels: rows4.label,
-                datasets: [{
-                    label: 'Master Category',
-                    backgroundColor: colours.background,
-                    borderColor: colours.border,
-                    borderWidth: 1.8,
-                    data: rows4.data
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
+            const order_sales = new Chart(element2, config2);
+        </script>
+    </div>
+    <div class="chart-pie col-6">
+        <h3><i class="fas fa-restroom mr-3"></i>Order Item Count by Gender</h3>
+        <canvas id="gender_count"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <script type='text/javascript'>
+            const rows3 = JSON.parse("{{gender_count|safe}}".replace(/'/g, "\""));
+            const element3 = document.getElementById('gender_count').getContext('2d');
+            const config3 = {
+                type: 'pie',
+                data: {
+                    labels: rows3.label,
+                    datasets: [{
+                        label: 'Gender',
+                        backgroundColor: colours.background,
+                        borderColor: colours.border,
+                        borderWidth: 1.8,
+                        data: rows3.data
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            display: false
+                        }]
+                    }
+                }
+            }
+            const gender_count = new Chart(element3, config3);
+        </script>
+    </div>
+    <div class="chart-pie col-6">
+        <h3><i class="fas fa-folder mr-3"></i>Order Item Count by Category</h3>
+        <canvas id="master_category_count"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <script type='text/javascript'>
+            const rows4 = JSON.parse("{{master_category_count|safe}}".replace(/'/g, "\""));
+            const element4 = document.getElementById('master_category_count').getContext('2d');
+            const config4 = {
+                type: 'pie',
+                data: {
+                    labels: rows4.label,
+                    datasets: [{
+                        label: 'Master Category',
+                        backgroundColor: colours.background,
+                        borderColor: colours.border,
+                        borderWidth: 1.8,
+                        data: rows4.data
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            display: false
+                        }]
+                    }
+                }
+            }
+            const master_category_count = new Chart(element4, config4);
+        </script>
+    </div>
+    <div class="chart-bar col-12">
+        <h3><i class="fas fa-folder-tree mr-3"></i>Order Item Count by Sub Category</h3>
+        <canvas id="sub_category_count"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <script type='text/javascript'>
+            const rows5 = JSON.parse("{{sub_category_count|safe}}".replace(/'/g, "\""));
+            const element5 = document.getElementById('sub_category_count').getContext('2d');
+            const config5 = {
+                type: 'bar',
+                data: {
+                    labels: rows5.label,
+                    datasets: [{
+                        label: 'Order Count: ',
+                        backgroundColor: colours.background,
+                        borderColor: colours.border,
+                        borderWidth: 1.8,
+                        data: rows5.data
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    legend: {
                         display: false
-                    }]
+                    }
                 }
             }
-        }
-        const master_category_count = new Chart(element4, config4);
-    </script>
-</div>
-<div class="chart-pie">
-    <h3><i class="fas fa-folder-tree mr-3"></i>Order Item Count by Sub Category</h3>
-    <canvas id="sub_category_count"></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script type='text/javascript'>
-        const rows5 = JSON.parse("{{sub_category_count|safe}}".replace(/'/g, "\""));
-        const element5 = document.getElementById('sub_category_count').getContext('2d');
-        const config5 = {
-            type: 'pie',
-            data: {
-                labels: rows5.label,
-                datasets: [{
-                    label: 'Sub Category',
-                    backgroundColor: colours.background,
-                    borderColor: colours.border,
-                    borderWidth: 1.8,
-                    data: rows5.data
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
+            const sub_category_count = new Chart(element5, config5);
+        </script>
+    </div>
+    <div class="chart-bar col-12">
+        <h3><i class="fas fa-shirt mr-3"></i>Order Item Count by Article Type</h3>
+        <canvas id="article_type_count"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <script type='text/javascript'>
+            const rows6 = JSON.parse("{{article_type_count|safe}}".replace(/'/g, "\""));
+            const element6 = document.getElementById('article_type_count').getContext('2d');
+            const config6 = {
+                type: 'bar',
+                data: {
+                    labels: rows6.label,
+                    datasets: [{
+                        label: 'Order Count: ',
+                        backgroundColor: colours.background,
+                        borderColor: colours.border,
+                        borderWidth: 1.8,
+                        data: rows6.data
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    legend: {
                         display: false
-                    }]
+                    }
                 }
             }
-        }
-        const sub_category_count = new Chart(element5, config5);
-    </script>
-</div>
-<div class="chart-pie">
-    <h3><i class="fas fa-shirt mr-3"></i>Order Item Count by Article Type</h3>
-    <canvas id="article_type_count"></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script type='text/javascript'>
-        const rows6 = JSON.parse("{{article_type_count|safe}}".replace(/'/g, "\""));
-        const element6 = document.getElementById('article_type_count').getContext('2d');
-        const config6 = {
-            type: 'doughnut',
-            data: {
-                labels: rows6.label,
-                datasets: [{
-                    label: 'Article Type',
-                    backgroundColor: colours.background,
-                    borderColor: colours.border,
-                    borderWidth: 1.8,
-                    data: rows6.data
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
+            const article_type_count = new Chart(element6, config6);
+        </script>
+    </div>
+    <div class="chart-bar col-12">
+        <h3><i class="fas fa-palette mr-3"></i>Order Item Count by Base Color</h3>
+        <canvas id="base_colour_count"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <script type='text/javascript'>
+            const rows7 = JSON.parse("{{base_colour_count|safe}}".replace(/'/g, "\""));
+            const element7 = document.getElementById('base_colour_count').getContext('2d');
+            const config7 = {
+                type: 'bar',
+                data: {
+                    labels: rows7.label,
+                    datasets: [{
+                        label: 'Order Count: ',
+                        backgroundColor: rows7.colour,
+                        borderColor: '#999',
+                        borderWidth: 1,
+                        data: rows7.data
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    legend: {
                         display: false
-                    }]
+                    }
                 }
             }
-        }
-        const article_type_count = new Chart(element6, config6);
-    </script>
-</div>
-<div class="chart-pie">
-    <h3><i class="fas fa-palette mr-3"></i>Order Item Count by Base Color</h3>
-    <canvas id="base_colour_count"></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script type='text/javascript'>
-        const rows7 = JSON.parse("{{base_colour_count|safe}}".replace(/'/g, "\""));
-        const element7 = document.getElementById('base_colour_count').getContext('2d');
-        const config7 = {
-            type: 'doughnut',
-            data: {
-                labels: rows7.label,
-                datasets: [{
-                    label: 'Base Colour',
-                    backgroundColor: rows7.colour,
-                    borderColor: "white",
-                    borderWidth: 1.8,
-                    data: rows7.data
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        display: false
-                    }]
-                }
-            }
-        }
-        const base_colour_count = new Chart(element7, config7);
-    </script>
+            const base_colour_count = new Chart(element7, config7);
+        </script>
+    </div>
 </div>
 {% endblock %}

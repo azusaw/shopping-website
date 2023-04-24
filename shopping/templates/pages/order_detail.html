@@ -5,17 +5,17 @@ Order Detail: {{order.id}}
 {% block page_content %}
 <h1>Order Detail: {{order.id}}</h1>
 <p>
-    <b>ID:</b>&ensp;{{ order.id }}<br />
-    <b>Date:</b>&ensp;{{ order.created_date }}<br />
+    <b>ID:</b>&ensp;{{ order.id }}<br/>
+    <b>Date:</b>&ensp;{{ order.created_date }}<br/>
     <b>Total Price: </b>&ensp;£&nbsp;{{ order.total_price }}
 </p>
 <p>
-    <b>Customer ID:</b>&ensp;{{user.id}} <br />
+    <b>Customer ID:</b>&ensp;{{user.id}} <br/>
     <b>Customer Name:</b>&ensp;{{user.first_name}}&nbsp;{{user.last_name}}
 </p>
 <div class="row">
     {% for item in items_with_image %}
-    <div class="col-4 my-2">
+    <div class="col-6 my-2">
         {% include 'components/item_card_order.html' with item=item.item link=item.link quantity=item.quantity %}
     </div>
     {% endfor %}

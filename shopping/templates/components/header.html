@@ -12,20 +12,20 @@
                            style="width: 340px">
                 </form>
                 <div class="mt-2 mb-3">
-                    {% if user.is_authenticated %}
+                    {% if request.user.is_authenticated %}
                     <div class="dropdown mr-4">
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none"
                            id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="https://avatars.githubusercontent.com/u/72424558?v=4" alt="" width="40"
                                  height="40"
                                  class="rounded-circle mr-2">
-                            <span class="px-2">{{user.username}}</span>
+                            <span class="px-2">{{request.user.username}}</span>
                             <i class="fa-solid fa-sort-down mx-2" style="font-size: 1.2rem; height: 1.7rem"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
                             {% if request.user.is_staff or request.user.is_superuser %}
                             <a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a>
-                            <a class="dropdown-item" href="{% url 'order_list' %}">All Order History</a>i
+                            <a class="dropdown-item" href="{% url 'order_list' %}">All Order History</a>
                             {% else %}
                             <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
                             <a class="dropdown-item" href="{% url 'order_list' %}">Order History</a>
