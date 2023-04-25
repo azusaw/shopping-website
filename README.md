@@ -1,5 +1,7 @@
 # shopping-website
 
+![image](https://user-images.githubusercontent.com/72424558/234277803-281be9e5-a24a-419c-8773-8b1c659f8eee.png)
+
 ## Heroku URL
 
 https://shopping-website.herokuapp.com/
@@ -59,6 +61,9 @@ pip install -r requirements.txt
 # create database
 python3 manage.py parse_csv
 
+# create dummy data of customer and order
+python3 manage.py create_dummy_data
+
 # run server
 python3 manage.py runserver 8000
 
@@ -66,8 +71,28 @@ python3 manage.py runserver 8000
 python3 manage.py runserver 0.0.0.0:8000
 ```
 
-## Create User
+## How to Run Tests
+The tests were developed by `Behave`, `Selenium`, `Faker` and `Fixtures`.
 
+### Behave Tests
+Beahave tests are exist in `/featuers`.
+There are <strong>23</strong> senarios and <strong>71</strong> steps tests developed by Behave.
+
+Run by bellow command.
+```commandline
+bahave
+```
+
+### Form, Model, View Tests
+Form, model, view tests are exist in `/tests`.
+There are <strong>23</strong> form tests, <strong>10</strong> model tests, and <strong>32</strong> view tests.
+
+Run by bellow command.
+```commandline
+python3 manage.py test
+```
+
+## Create User
 You can create customer user from `/signup`.
 
 If you want to create an superuser as staff of the shop, execute below command.
@@ -85,13 +110,6 @@ Also, you can use user information which is already prepared.
     * username: `azusaw`
     * password: `P@ssw0rd`
 
-## How to Run Tests
-
-The tests were developed by xxx.
-
-```commandline
-python3 manage.py test
-```
 
 ## When Updated Code
 
