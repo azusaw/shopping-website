@@ -2,10 +2,10 @@ import os
 
 import django
 from behave import fixture, use_fixture
+from django import db
 from django.test import Client
 from django.test.runner import DiscoverRunner
-from django.test.testcases import LiveServerTestCase
-from django.test.testcases import TestCase
+from django.test.testcases import LiveServerTestCase, TransactionTestCase
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -37,7 +37,7 @@ def before_all(context):
 
 
 def before_scenario(context, scenario):
-    context.test = TestCase()
+    context.test = TransactionTestCase()
     context.test.setUpClass()
     context.test.client = Client()
     use_fixture(django_test_case, context)
@@ -45,6 +45,7 @@ def before_scenario(context, scenario):
 
 def after_scenario(context, scenario):
     context.test.tearDownClass()
+    db.connections.close_all()
     del context.test
 
 

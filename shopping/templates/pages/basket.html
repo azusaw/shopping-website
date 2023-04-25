@@ -22,7 +22,7 @@ Your basket
                 <div class="d-flex" style="justify-content: flex-end;">
                     {{ item.update_quantity_form.quantity }}
                     {{ item.update_quantity_form.override }}
-                    <input type="submit" value="Update" class="ml-3 btn-primary">
+                    <input type="submit" name="update-quantity" value="Update" class="ml-3 btn-primary">
                     {% csrf_token %}
                 </div>
             </form>

@@ -1,12 +1,12 @@
-import urllib.request
+import urllib
 from urllib.parse import urljoin
 
 from behave import given, when, then
 
-from shopping.models import Item, MasterCategory, SubCategory, ArticleType, BaseColour, Image, Gender
+from shopping.models import Gender, MasterCategory, SubCategory, ArticleType, BaseColour, Item, Image
 
 
-@given("the specific product which want to check")
+@given("the specific product which want to add into basket")
 def create_item(context):
     # Convert table into dictionary
     args = dict(context.table)
@@ -28,26 +28,46 @@ def create_item(context):
                                          display_name=args["display_name"],
                                          price=args["price"]
                                          )
-    Image.objects.get_or_create(item=item,
-                                link="http://assets.myntassets.com/v1/images/style/properties/b0d3dcd6aaa7274486236fa267ef8cb5_images.jpg"
-                                )
+    Image.objects.get_or_create(item=item, link=args["link"])
 
 
-@when('we access the item listing page')
-def access_item_list_page(context):
-    base_url = urllib.request.url2pathname(context.test_case.live_server_url)
-    open_url = urljoin(base_url, '/')
-    context.response = context.test.client.get("/")
-    context.browser.get(open_url)
-
-
-@when('we access the item detail page of "{item_id}"')
-def access_item_detail_page(context, item_id):
+@when('we add the item with id "{item_id}" into basket')
+def add_item_into_basket(context, item_id):
     base_url = urllib.request.url2pathname(context.test_case.live_server_url)
     open_url = urljoin(base_url, f"/detail/{item_id}")
     context.browser.get(open_url)
 
+    quantity_textfield = context.browser.find_element('name', 'quantity')
+    quantity_textfield.send_keys(1)
+    context.browser.find_element('name', 'add-basket').click()
 
-@then('we will find "{keyword}"')
-def check_keyword(context, keyword):
-    assert keyword in context.browser.page_source
+
+@when('we update the item quantity to "{quantity}"')
+def update_quantity(context, quantity):
+    quantity_textfield = context.browser.find_element('name', 'quantity')
+    quantity_textfield.send_keys(quantity)
+    context.browser.find_element('name', 'update-quantity').click()
+    assert 'Your Basket' in context.browser.page_source
+
+
+@when('we process a purchase')
+def process_purchase(context):
+    base_url = urllib.request.url2pathname(context.test_case.live_server_url)
+    open_url = urljoin(base_url, "/purchase/")
+    context.browser.get(open_url)
+
+
+@then('we will be redirected to the basket page')
+def check_basket(context):
+    assert 'Your Basket' in context.browser.page_source
+
+
+@then('item quantity will be updated to "{quantity}"')
+def check_quantity(context, quantity):
+    quantity_textfield = context.browser.find_element('name', 'quantity')
+    assert quantity_textfield.get_attribute("value") == quantity
+
+
+@then('we will be redirected to login page')
+def check_redirect_to_login_page(context):
+    assert 'Login' in context.browser.page_source

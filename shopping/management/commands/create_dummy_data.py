@@ -88,7 +88,6 @@ class Command(BaseCommand):
 
                 order.created_date = get_random_date()
                 order.save()
-                print(order)
 
                 for item in order_items:
                     order_item = OrderItem.objects.create(order=order, item=item, price=item.price, quantity=1)

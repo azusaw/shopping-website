@@ -17,14 +17,24 @@ def guest_user(context):
 
 @given("I am a customer user")
 def customer_user(context):
-    user = User.objects.create_user("customer-test", "P@ssw0rd")
-    Customer.objects.create(user=user, phone="1234567890", address="123 Aberdeen")
+    # Create test customer user if not exist
+    user = User.objects.filter(username="customer-test")
+    if not user.exists():
+        user = User.objects.create_user("customer-test", "P@ssw0rd")
+        Customer.objects.get_or_create(user=user, phone="1234567890", address="123 Aberdeen")
+    else:
+        user = user.first()
     context.test.client.force_login(user)
 
 
 @given("I am a staff user")
 def staff_user(context):
-    user = User.objects.create_superuser("staff-test", "P@ssw0rd")
+    # Create test staff user if not exist
+    user = User.objects.filter(username="staff-test")
+    if not user.exists():
+        user = User.objects.create_superuser("staff-test", "P@ssw0rd")
+    else:
+        user = user.first()
     context.test.client.force_login(user)
 
 
