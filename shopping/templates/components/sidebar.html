@@ -48,14 +48,14 @@
                 </h2>
                 <div id="master_category" class="accordion-collapse collapse" data-bs-parent="#accordion">
                     <div class="accordion-body">
-                        {% for k, v in menu.master_sub_category.items %}
+                        {% for key, value in menu.master_sub_category.items %}
                         <div class="my-2">
                             <a href="{% url 'item_list' %}?master={{k}}" class="side-bar-category">
-                                {{ k }}
+                                {{ key }}
                             </a>
-                            {% for i in v %}
+                            {% for i in value %}
                             <div class="side-bar-sub-category">
-                                >&ensp;<a href="{% url 'item_list' %}?sub={{i}}">{{ i }}</a>
+                                &ensp;<a href="{% url 'item_list' %}?sub={{i}}">{{ i }}</a>
                             </div>
                             {% endfor %}
                             <br/>
