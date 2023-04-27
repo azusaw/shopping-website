@@ -20,14 +20,14 @@ This website has some pages, access permission is managed by user role of login 
 * [/detail/<item_id>](https://shopping-website.herokuapp.com/detail/43993) ... Show product detail and add product to
   cart.
 * [/signup](https://shopping-website.herokuapp.com/signup) ... Sign up customer user.
-* [/signin](https://shopping-website.herokuapp.com/signin) ... Sign in by username and password.
+* [/accounts/login](https://shopping-website.herokuapp.com/accounts/login) ... Sign in by username and password.
 
 ### For Customer User
 
 * [/profile](https://shopping-website.herokuapp.com/profile) ... Customer can update user profile.
 * [/order_list](https://shopping-website.herokuapp.com/order_list) ... Show all order history which login customer made.
-* [/order/<order_id>](https://shopping-website.herokuapp.com/order/???) ... Show order detail of selected order.
-* [/thanks/<order_id>](https://shopping-website.herokuapp.com/thanks/???) ... Thanks page for order.
+* [/order/<order_id>](https://shopping-website.herokuapp.com/order/835) ... Show order detail of selected order.
+* [/thanks/<order_id>](https://shopping-website.herokuapp.com/thanks/835) ... Thanks page for order.
 * [/basket](https://shopping-website.herokuapp.com/basket) ... Show current basket and proceed purchase.
 * [/purchase](https://shopping-website.herokuapp.com/purchase) ... Input payment information to complete an order.
 
@@ -76,7 +76,7 @@ The tests were developed by `Behave`, `Selenium`, `Faker` and `Fixtures`.
 
 ### Behave Tests
 Beahave tests are exist in `/featuers`.
-There are <strong>23</strong> senarios and <strong>71</strong> steps tests developed by Behave.
+There are <strong>23</strong> senarios and <strong>71</strong> steps developed by Behave.
 
 Run by bellow command.
 ```commandline
