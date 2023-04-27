@@ -29,7 +29,10 @@ SECRET_KEY = 'django-insecure-k-d2ih59&@1(dhv46*_g6gq0vvxw9e^2-c%p3^li&#%d7khr#f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'shopping-website.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'shopping-website.herokuapp.com', 'extrafragile-focushexagon-8000.codio-box.uk']
+
+CSRF_TRUSTED_ORIGINS = ['https://extrafragile-focushexagon-8000.codio-box.uk']
+
 
 # Application definition
 
