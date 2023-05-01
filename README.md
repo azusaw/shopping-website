@@ -21,6 +21,7 @@ This website has some pages, access permission is managed by user role of login 
   cart.
 * [/signup](https://shopping-website.herokuapp.com/signup) ... Sign up customer user.
 * [/accounts/login](https://shopping-website.herokuapp.com/accounts/login) ... Sign in by username and password.
+* [/[not exist url]](https://shopping-website.herokuapp.com/accounts/hoge) ... 404 Not Found
 
 ### For Customer User
 
@@ -35,7 +36,7 @@ This website has some pages, access permission is managed by user role of login 
 
 * [/order_list](https://shopping-website.herokuapp.com/order_list) ... Show all order history of all customer.
 * [/dashboard](https://shopping-website.herokuapp.com/dashboard) ... Show charts for analysing purchase data.
-* [/admin](https://shopping-website.herokuapp.com/admin) ... Add new data into database.
+* [/admin](https://shopping-website.herokuapp.com/admin) ... Add new master data into database.
 
 `All visitor` can see products but if visitor want to process purchase, sign up or login is needed.
 
@@ -52,7 +53,10 @@ Create `.env` file in root directory with below contents.
 DEBUG=True
 ```
 
-Then, start the server with this command.
+Note: If you set `DEBUG=True` in local environment, 404 page does not work.
+
+Prepare dependent libraries and database by below command at once.
+You only need to do it once the first time.
 
 ```commandline
 # install dependencies
@@ -63,7 +67,11 @@ python3 manage.py parse_csv
 
 # create dummy data of customer and order
 python3 manage.py create_dummy_data
+```
 
+Then, start the server with this command.
+
+```commandline
 # run server
 python3 manage.py runserver 8000
 
@@ -72,27 +80,33 @@ python3 manage.py runserver 0.0.0.0:8000
 ```
 
 ## How to Run Tests
+
 The tests were developed by `Behave`, `Selenium`, `Faker` and `Fixtures`.
 
 ### Behave Tests
+
 Beahave tests are exist in `/featuers`.
 There are <strong>23</strong> senarios and <strong>71</strong> steps developed by Behave.
 
 Run by bellow command.
+
 ```commandline
 bahave
 ```
 
 ### Form, Model, View Tests
+
 Form, model, view tests are exist in `/tests`.
 There are <strong>23</strong> form tests, <strong>10</strong> model tests, and <strong>32</strong> view tests.
 
 Run by bellow command.
+
 ```commandline
 python3 manage.py test
 ```
 
 ## Create User
+
 You can create customer user from `/signup`.
 
 If you want to create an superuser as staff of the shop, execute below command.
@@ -109,7 +123,6 @@ Also, you can use user information which is already prepared.
 * Customer user
     * username: `azusaw`
     * password: `P@ssw0rd`
-
 
 ## When Updated Code
 
