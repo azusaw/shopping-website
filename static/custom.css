@@ -65,9 +65,24 @@
     box-shadow: none;
 }
 
+.item-list-card {
+    width: 280px;
+    height: 500px;
+    background-color: white;
+    transition: all ease 0.3s;
+}
+
+.item-list-card:hover {
+    box-shadow:0 0 20px rgb(200, 200, 200, 0.5), 0 2px 5px rgba(0, 0, 0, 0.3);
+    background-color: #E4D0D0;
+    cursor: pointer;
+}
+
 .btn-more {
     position: absolute;
-    border: 1px gray solid;
+    border: 1px #867070 solid;
+    background-color: #F5EBEB;
+    color: #867070;
     bottom: 15px;
     right: 10px;
 }

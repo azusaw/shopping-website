@@ -8,7 +8,7 @@ All Items
     <div class="row">
         {% for item in basket %}
         <div class="col-4 my-2">
-            {% include 'components/item_card_order.html' with item=item.item.item link=item.item.link quantity=item.quantity %}
+            {% include 'components/item_card_purchase.html' with item=item.item.item link=item.item.link quantity=item.quantity %}
         </div>
         {% endfor %}
     </div>
