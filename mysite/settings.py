@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
+from distutils.util import strtobool
 from pathlib import Path
 
 import environ
@@ -27,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-k-d2ih59&@1(dhv46*_g6gq0vvxw9e^2-c%p3^li&#%d7khr#f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = strtobool(env('DEBUG'))
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'shopping-website.herokuapp.com',
                  'extrafragile-focushexagon-8000.codio-box.uk']
@@ -95,7 +96,7 @@ DATABASES = {
             'timeout': 30,  # To avoid table lock
         },
         'TEST': {
-            'NAME': 'testdb.sqlite3',
+            'NAME': 'testdb.sqlite3',  # For selenium test
         },
     }
 }
