@@ -22,7 +22,7 @@ def get_hex_code(colour_str):
     elif colour == 'mauve':
         colour = 'mediumpurple'
     elif colour == 'peach':
-        colour = 'lightpink'
+        colour = 'pink'
     elif colour == 'charcoal' or colour == 'steel' or colour == 'taupe' or colour == 'melange' or colour == 'metallic':
         colour = 'gray'
     try:
