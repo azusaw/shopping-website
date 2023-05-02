@@ -14,9 +14,9 @@ Order Detail: {{order.id}}
     <b>Customer Name:</b>&ensp;{{user.first_name}}&nbsp;{{user.last_name}}
 </p>
 <div class="row">
-    {% for item in items_with_image %}
+    {% for item in order_items %}
     <div class="col-6 my-2">
-        {% include 'components/item_card_with_price.html' with item=item.item link=item.link quantity=item.quantity %}
+        {% include 'components/item_card_with_price.html' with item=item.item quantity=item.quantity %}
     </div>
     {% endfor %}
 </div>

@@ -1,7 +1,9 @@
 import csv
+import os
 import random
 from pathlib import Path
 
+import requests
 import webcolors
 from django.core.management.base import BaseCommand
 
@@ -37,6 +39,21 @@ def get_random_price():
     return round(random.randrange(500, 10000, 1) / 100, 2)
 
 
+def download_file(url, fname):
+    """Download image file if not exist in ./static/items"""
+    fpath = f"./static/items/{fname}"
+
+    if os.path.isfile(fpath):
+        return
+    try:
+        response = requests.get(url)
+        image = response.content
+        with open(fpath, "wb") as f:
+            f.write(image)
+    except Exception as e:
+        print(e)
+
+
 class Command(BaseCommand):
     help = 'Load data from csv'
 
@@ -56,6 +73,7 @@ class Command(BaseCommand):
         # Insert data from styles.csv
         print("START: READ DATA FROM CSV FROM styles.csv")
         base_dir = Path(__file__).resolve().parent.parent.parent.parent
+
         with open(str(base_dir) + '/data/styles.csv', newline='', encoding='latin-1') as f:
             reader = csv.reader(f, delimiter=",")
             next(reader)
@@ -67,12 +85,12 @@ class Command(BaseCommand):
             article_type = set()
             base_colour = set()
 
-            # Count record to make 5000 records
-            cnt = 0;
+            # Count record to make 3000 records
+            cnt = 0
 
             # Insert data to the relevant tables
             for row in reader:
-                if cnt >= 5000:
+                if cnt >= 3000:
                     break
                 tmp_master_category = MasterCategory(id=row[2])
                 tmp_sub_category = SubCategory(id=row[3], master_category=tmp_master_category)
@@ -117,22 +135,30 @@ class Command(BaseCommand):
                 next(reader)
 
                 images = []
+                cnt = 0
 
                 for row in reader:
                     try:
                         item = Item.objects.get(pk=row[0].removesuffix('.jpg'))
                     except Item.DoesNotExist:
-                        # Skip if a item does not exist in shopping_item table
+                        # Skip if the item does not exist in shopping_item table
                         continue
-                    image = Image(
-                        item=item,
-                        link=row[1],
-                    )
+                    image = Image(item=item, link=row[1])
                     images.append(image)
+
+                    # Download image in static folder to prevent warning of mixed contents on heroku and codio
+                    download_file(row[1], row[0])
+
+                    # For checking progress
+                    cnt += 1
+                    if cnt % 10 == 0:
+                        print(f"--> {cnt}")
+                        
                 print("--> Read all from images.csv record successfully.")
 
                 print("START: INSERT DATA INTO DATABASE")
                 Image.objects.bulk_create(images)
+
                 print("--> Data parsed successfully.")
 
         print("--> Complete all data parse successfully.")

@@ -1,29 +1,32 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}
-{{items_with_image.item.display_name}}
+{{item.display_name}}
 {% endblock %}
 {% block page_content %}
 <div class="row" style="max-width:900px; margin: 4rem auto; align-items: center;">
+    {% with link='items/'|add:item.id|add:'.jpg' %}
     <div class="col-6">
-        <img src="{{items_with_image.link}}" alt={{items_with_image.item.display_name}} width="400"/>
+        <img src="{% static link %}" alt={{item.display_name}} width="400"/>
     </div>
+    {% endwith %}
     <div class="col-6">
         <p>
-            {{items_with_image.item.master_category}}&nbsp;/&nbsp;
-            {{items_with_image.item.sub_category}}&nbsp;/&nbsp;
-            {{items_with_image.item.article_type}}
+            {{item.master_category}}&nbsp;/&nbsp;
+            {{item.sub_category}}&nbsp;/&nbsp;
+            {{item.article_type}}
         </p>
         <p>
-            {{items_with_image.item.year}}&ensp;{{items_with_image.item.season}},&ensp;{{items_with_image.item.usage}}
+            {{item.year}}&ensp;{{item.season}},&ensp;{{item.usage}}
         </p>
-        <h1>{{items_with_image.item.display_name}}</h1>
-        <span class="colour-box my-2" style="background-color: {{items_with_image.item.base_colour.hex_code}}">
-            {{items_with_image.item.base_colour}}
+        <h1>{{item.display_name}}</h1>
+        <span class="colour-box my-2" style="background-color: {{item.base_colour.hex_code}}">
+            {{item.base_colour}}
         </span>
         <div class="bold align-right" style="font-size: 1.6rem">
-            £&nbsp;{{items_with_image.item.price}}
+            £&nbsp;{{item.price}}
         </div>
-        <form action="{% url 'basket_add' items_with_image.item.id %}" method="post">
+        <form action="{% url 'basket_add' item.id %}" method="post">
             {{ basket_item_form }}
             {% csrf_token %}
             <input type="submit" name="add-basket" class="btn-primary btn-w my-10" value="Add to Basket">

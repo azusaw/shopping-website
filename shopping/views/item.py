@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.shortcuts import render
 
 from shopping.forms import BasketAddItemForm
-from shopping.models import Image
+from shopping.models import Item
 from shopping.views.menu import get_menu_info
 
 
@@ -39,20 +39,20 @@ def item_list(request):
 
     # Create WHERE clause from query strings
     where = []
-    where_color = []
-    if keyword != '':
-        where.append(Q(item__display_name__contains=keyword))
-    if gender != '':
-        where.append(Q(item__gender=gender))
-    if master != '':
-        where.append(Q(item__master_category=master))
-    if sub != '':
-        where.append(Q(item__sub_category=sub))
-    if colour != '':
-        where_color.append(Q(item__base_colour__hex_code='#' + colour))
 
-    items_with_image = Image.objects.all().select_related("item").filter(*where)
-    items = items_with_image.select_related("item__base_colour").filter(*where_color)
+    if keyword != '':
+        where.append(Q(display_name__contains=keyword))
+    if gender != '':
+        where.append(Q(gender=gender))
+    if master != '':
+        where.append(Q(master_category=master))
+    if sub != '':
+        where.append(Q(sub_category=sub))
+    if colour != '':
+        where.append(Q(base_colour__hex_code='#' + colour))
+
+    items = Item.objects.select_related("base_colour").filter(*where)
+
     return render(request, 'pages/item_list.html',
                   {'title': title, 'menu': get_menu_info(), 'items': items, 'cnt': len(items)})
 
@@ -61,7 +61,7 @@ def item_detail(request, item_id):
     """
     Render '/detail/<item_id>' page with item data
     """
-    items_with_image = Image.objects.select_related("item").get(item_id=item_id)
+    item = Item.objects.get(id=item_id)
     basket_item_form = BasketAddItemForm()
     return render(request, 'pages/item_detail.html',
-                  {'menu': get_menu_info(), 'items_with_image': items_with_image, 'basket_item_form': basket_item_form})
+                  {'menu': get_menu_info(), 'item': item, 'basket_item_form': basket_item_form})

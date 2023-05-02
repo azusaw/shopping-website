@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
 
-from shopping.models import Order, OrderItem, Customer, Image
+from shopping.models import Order, OrderItem, Customer
 from shopping.views.menu import get_menu_info
 
 
@@ -32,18 +32,8 @@ def order_detail(request, order_id):
     # Get order items with item instance
     order_items = OrderItem.objects.select_related("item").filter(order_id=order_id).order_by("item_id")
 
-    # Get images from item ids
-    item_ids = [item.item.id for item in order_items]
-    images = Image.objects.select_related("item").filter(item__in=item_ids).order_by("item_id")
-
-    # Combine order items and images data
-    items_with_image = []
-    for i in range(0, len(order_items)):
-        items_with_image.append({'link': images[i], 'item': order_items[i].item, 'price': order_items[i].price,
-                                 'quantity': order_items[i].quantity})
-
     return render(request, 'pages/order_detail.html',
-                  {'menu': get_menu_info(), 'order': order, 'user': user, 'items_with_image': items_with_image})
+                  {'menu': get_menu_info(), 'order': order, 'user': user, 'order_items': order_items})
 
 
 def thanks(request, order_id):
