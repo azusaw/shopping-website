@@ -1,4 +1,3 @@
-from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.db import models
 from django.db.models import Count
@@ -25,16 +24,11 @@ def signup(request):
     if form.is_valid():
         user = form.save()
         user.refresh_from_db()
-        user.customer.first_name = form.cleaned_data.get('first_name')
-        user.customer.last_name = form.cleaned_data.get('last_name')
-        user.customer.phone = form.cleaned_data.get('phone')
-        user.customer.address = form.cleaned_data.get('address')
         user.save()
-        username = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password1')
-        user = authenticate(username=username, password=password)
-        login(request, user)
-        return redirect('/')
+
+        customer = Customer(user=user, phone=form.cleaned_data.get('phone'), address=form.cleaned_data.get('address'))
+        customer.save()
+        return redirect('/accounts/login/')
 
     return render(request, 'pages/signup.html',
                   {'menu': get_menu_info(), 'form': form, 'password_helper': form.fields["password1"].help_text,
