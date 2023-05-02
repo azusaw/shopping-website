@@ -109,6 +109,9 @@ def profile(request):
     Render '/profile' page with login user data
     """
     errors = []
+    swal_icon = ''
+    swal_title = ''
+    swal_message = ''
 
     # Only customer user can access to the profile page
     if not request.user.is_authenticated or request.user.is_staff or request.user.is_superuser:
@@ -118,25 +121,33 @@ def profile(request):
 
     if request.method == "POST":
         form = CustomerProfileForm(request.POST)
-        errors = form.errors
-    else:
-        # Fill fields with a customer information
-        form = CustomerProfileForm(initial={
-            'first_name': request.user.first_name,
-            'last_name': request.user.last_name,
-            'phone': customer.phone,
-            'address': customer.address,
-        })
+        if form.errors:
+            errors = form.errors
+            swal_icon = "error"
+            swal_title = "Error..."
+            swal_message = "Failed to update your profile"
+        else:
+            swal_icon = "success"
+            swal_title = "Success!"
+            swal_message = "Your profile is updated."
+
+    # Fill fields with a customer information
+    form = CustomerProfileForm(initial={
+        'first_name': request.user.first_name,
+        'last_name': request.user.last_name,
+        'phone': customer.phone,
+        'address': customer.address,
+    })
 
     if form.is_valid():
         # Update customer information
         customer.phone = request.POST.get("phone")
         customer.address = request.POST.get("address")
         customer.save()
-        return redirect('profile')
 
     return render(request, 'pages/user_profile.html',
-                  {'menu': get_menu_info(), 'form': form, 'errors': errors})
+                  {'menu': get_menu_info(), 'form': form, 'errors': errors, 'swal_icon': swal_icon,
+                   'swal_title': swal_title, 'swal_message': swal_message})
 
 
 def dashboard(request):

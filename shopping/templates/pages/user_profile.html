@@ -11,6 +11,9 @@ Profile
             {{errors}}
         </div>
         {% endif %}
+        {% if swal_icon %}
+        {% include 'components/swal.html' with icon=swal_icon title=swal_title message=swal_message %}
+        {% endif %}
         {% csrf_token %}
         <div class="my-4 row">
             {% for field in form %}
