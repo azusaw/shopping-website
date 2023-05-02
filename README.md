@@ -27,8 +27,8 @@ This website has some pages, access permission is managed by user role of login 
 
 * [/profile](https://shopping-website.herokuapp.com/profile) ... Customer can update user profile.
 * [/order_list](https://shopping-website.herokuapp.com/order_list) ... Show all order history which login customer made.
-* [/order/<order_id>](https://shopping-website.herokuapp.com/order/835) ... Show order detail of selected order.
-* [/thanks/<order_id>](https://shopping-website.herokuapp.com/thanks/835) ... Thanks page for order.
+* [/order/<order_id>](https://shopping-website.herokuapp.com/order/869) ... Show order detail of selected order.
+* [/thanks/<order_id>](https://shopping-website.herokuapp.com/thanks/869) ... Thanks page for order.
 * [/basket](https://shopping-website.herokuapp.com/basket) ... Show current basket and proceed purchase.
 * [/purchase](https://shopping-website.herokuapp.com/purchase) ... Input payment information to complete an order.
 
