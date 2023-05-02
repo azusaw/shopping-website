@@ -5,6 +5,7 @@ from pathlib import Path
 
 import requests
 import webcolors
+from PIL import Image as PILImage
 from django.core.management.base import BaseCommand
 
 from shopping.models import Item, Gender, MasterCategory, SubCategory, ArticleType, BaseColour, Image, Order, OrderItem
@@ -41,14 +42,12 @@ def get_random_price():
 
 def download_file(url, fname):
     """Download image file if not exist in ./static/items"""
-    fpath = f"./static/items/{fname}"
-
-    if os.path.isfile(fpath):
+    if os.path.isfile(fname):
         return
     try:
         response = requests.get(url)
         image = response.content
-        with open(fpath, "wb") as f:
+        with open(fname, "wb") as f:
             f.write(image)
     except Exception as e:
         print(e)
@@ -58,6 +57,8 @@ class Command(BaseCommand):
     help = 'Load data from csv'
 
     def handle(self, *args, **options):
+        fpath = "./static/items/"
+
         # Delete data from tables to avoid duplicate values
         print("START: DELETE ALL RECORDS FROM DATABASE　EXCEPT USER DATA")
         Item.objects.all().delete()
@@ -147,18 +148,39 @@ class Command(BaseCommand):
                     images.append(image)
 
                     # Download image in static folder to prevent warning of mixed contents on heroku and codio
-                    download_file(row[1], row[0])
+                    download_file(row[1], f"./static/items/{row[0]}")
 
                     # For checking progress
                     cnt += 1
                     if cnt % 10 == 0:
                         print(f"--> {cnt}")
-                        
+
                 print("--> Read all from images.csv record successfully.")
 
                 print("START: INSERT DATA INTO DATABASE")
                 Image.objects.bulk_create(images)
+            print("--> Data parsed successfully.")
 
-                print("--> Data parsed successfully.")
+            print("START: COMPRESS IMAGE FILES")
+            # Compress image data for render
+            cnt = 0
+            images = os.listdir(fpath)
+            for i in range(len(images)):
+                try:
+                    image_file = os.path.join(fpath, images[i])
+                    image_data = PILImage.open(image_file)
+                    width, height = image_data.size
+                    new_image_data = image_data.resize((int(width / 2), int(height / 2)))
+                    new_image = fpath + images[i]
+                    new_image_data.save(new_image, quality=50, optimize=True)
+                except OSError:
+                    continue
+
+                # For checking progress
+                cnt += 1
+                if cnt % 10 == 0:
+                    print(f"--> {cnt}")
+
+            print("--> Image files compressed successfully.")
 
         print("--> Complete all data parse successfully.")
