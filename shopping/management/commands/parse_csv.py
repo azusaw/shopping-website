@@ -174,6 +174,7 @@ class Command(BaseCommand):
                     new_image = fpath + images[i]
                     new_image_data.save(new_image, quality=50, optimize=True)
                 except OSError:
+                    print(f"--> skip: {images[i]}")
                     continue
 
                 # For checking progress
