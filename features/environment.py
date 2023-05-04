@@ -8,9 +8,6 @@ from django.test.runner import DiscoverRunner
 from django.test.testcases import LiveServerTestCase, TransactionTestCase
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-
 
 os.environ["DJANGO_SETTINGS_MODULE"] = "mysite.settings"
 django.setup()
@@ -34,7 +31,6 @@ chrome_options.add_argument("--proxy-bypass-list=*")
 # add our browser to the context object so that it can be used in all steps
 def before_all(context):
     use_fixture(django_test_runner, context)
-    # driver_path = ChromeDriverManager().install()
     browser = webdriver.Chrome(options=chrome_options, executable_path=CHROME_DRIVER)
     browser.set_page_load_timeout(time_to_wait=200)
     context.browser = browser
@@ -54,8 +50,6 @@ def after_scenario(context, scenario):
 
 
 def after_all(context):
-    # context.browser = webdriver.Chrome()
-    # context.browser = webdriver.Chrome(options=chrome_options, executable_path=CHROME_DRIVER)
     context.browser.quit()
 
 
