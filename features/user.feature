@@ -91,19 +91,19 @@ When I access the profile page
 Then Status code is 302
 
 
-Scenario: #14 Guest user can not access the order listing page
+Scenario: #17 Guest user can not access the order listing page
 Given I am not authenticated
 When I access the order listing page
 Then Status code is 302
 
 
-Scenario: #15 Customer user can access the order listing page
+Scenario: #18 Customer user can access the order listing page
 Given I am a customer user
 When I access the order listing page
 Then Status code is 200
 
 
-Scenario: #16 Staff user can access the order listing page
+Scenario: #19 Staff user can access the order listing page
 Given I am a staff user
 When I access the order listing page
 Then Status code is 200
